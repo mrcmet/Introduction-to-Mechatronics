@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "category-folder/Some note.md",
+                "file": "category-folder/Analog to Digital Conversion/Discretization.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "Some note"
+              "title": "Discretization"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "category-folder/Some note.md",
+                "file": "index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Some note"
+              "title": "Backlinks for index"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "category-folder/Some note.md",
+                "file": "index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Some note"
+              "title": "Outgoing links from index"
             }
           },
           {
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "category-folder/Some note.md",
+                "file": "index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Some note"
+              "title": "Outline of index"
             }
           }
         ]
@@ -171,9 +171,19 @@
   },
   "active": "2d8837e6263008e3",
   "lastOpenFiles": [
+    "category-folder/Index.md",
+    "category-folder/Analog to Digital Conversion/Discretization.md",
+    "category-folder/Analog to Digital Conversion/Discretization.sync-conflict-20250314-030638-U2WD4OR.md",
+    "category-folder/Analog to Digital Conversion/~syncthing~Discretization.sync-conflict-20250314-030638-U2WD4OR.md.tmp",
+    "~syncthing~Index.md.tmp",
+    "category-folder/Analog to Digital Conversion/Index.md",
+    "Index.sync-conflict-20250314-030458-U2WD4OR.md",
+    "~syncthing~Index.sync-conflict-20250314-030458-U2WD4OR.md.tmp",
+    "~syncthing~Untitled.md.tmp",
     "index.md",
-    "Welcome.md",
+    "category-folder/Analog to Digital Conversion",
     "category-folder/Some note.md",
+    "Welcome.md",
     "~syncthing~index.md.tmp",
     "category-folder/index.md",
     "category-folder/index.sync-conflict-20250313-042907-U2WD4OR.md",
