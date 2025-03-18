@@ -1,0 +1,3 @@
+
+# What are they :
+These are common in two forms, polar and strip, but the concept of their creation remains the same. A physical system moves a pen across a sheet of moving paper in response to stimuli. Since the physical stimuli is analog and the motion of the pen on paper is tied to that motion, the entire system records a continuous amplitude value. The motion of the paper produces a continuous time recording, and with their powers combined we have a waveform. 
