@@ -1,3 +1,5 @@
-# Analog to Digital Conversion
+---
+title: Analog to Diital Conversion
+---
 
-This chapter will discuss the task of converting analog measurements to discrete, and ultimately digital data. 
+

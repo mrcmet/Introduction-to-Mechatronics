@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "category-folder/Analog to Digital Conversion/Discretization.md",
+                "file": "category-folder/Analog to Digital Conversion/Index.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "Discretization"
+              "title": "Index"
             }
           }
         ]
@@ -172,11 +172,17 @@
   "active": "2d8837e6263008e3",
   "lastOpenFiles": [
     "category-folder/Index.md",
-    "category-folder/Analog to Digital Conversion/Discretization.md",
+    "category-folder/Analog to Digital Conversion/Index.sync-conflict-20250318-030314-U2WD4OR.md",
+    "category-folder/Analog to Digital Conversion/~syncthing~Index.sync-conflict-20250318-030314-U2WD4OR.md.tmp",
+    "category-folder/Analog to Digital Conversion/Index.md",
+    "category-folder/Analog to Digital Conversion/Analog Conversion.md",
+    "category-folder/Analog to Digital Conversion/Analog Conversion.sync-conflict-20250314-035049-U2WD4OR.md",
+    "category-folder/Analog to Digital Conversion/Analog Conversion.sync-conflict-20250314-035039-U2WD4OR.md",
+    "category-folder/Analog to Digital Conversion/~syncthing~Analog Conversion.sync-conflict-20250314-035049-U2WD4OR.md.tmp",
+    "category-folder/Analog to Digital Conversion/~syncthing~Analog Conversion.sync-conflict-20250314-035039-U2WD4OR.md.tmp",
     "category-folder/Analog to Digital Conversion/Discretization.sync-conflict-20250314-030638-U2WD4OR.md",
     "category-folder/Analog to Digital Conversion/~syncthing~Discretization.sync-conflict-20250314-030638-U2WD4OR.md.tmp",
     "~syncthing~Index.md.tmp",
-    "category-folder/Analog to Digital Conversion/Index.md",
     "Index.sync-conflict-20250314-030458-U2WD4OR.md",
     "~syncthing~Index.sync-conflict-20250314-030458-U2WD4OR.md.tmp",
     "~syncthing~Untitled.md.tmp",
@@ -187,7 +193,6 @@
     "~syncthing~index.md.tmp",
     "category-folder/index.md",
     "category-folder/index.sync-conflict-20250313-042907-U2WD4OR.md",
-    "category-folder/~syncthing~index.sync-conflict-20250313-042907-U2WD4OR.md.tmp",
-    "category-folder"
+    "category-folder/~syncthing~index.sync-conflict-20250313-042907-U2WD4OR.md.tmp"
   ]
 }
