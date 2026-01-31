@@ -1,4 +1,0 @@
----
-title: Mechatronics for Engineers
----
-

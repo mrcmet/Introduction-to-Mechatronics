@@ -1,5 +1,0 @@
----
-title: Waveforms and Signals
----
-
-

@@ -1,0 +1,21 @@
+{
+  "callouts": {
+    "custom": [
+      "definition"
+    ],
+    "settings": {
+      "definition": [
+        {
+          "changes": {
+            "icon": "lucide-book-text"
+          }
+        }
+      ]
+    }
+  },
+  "calloutDetection": {
+    "obsidian": true,
+    "theme": true,
+    "snippet": true
+  }
+}

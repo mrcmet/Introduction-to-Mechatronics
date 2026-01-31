@@ -1,0 +1,224 @@
+{
+  "main": {
+    "id": "3c0be394d4f05d56",
+    "type": "split",
+    "children": [
+      {
+        "id": "21c06746aab7d938",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7bc01be68bcff3be",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6d6a42434c75c9b4",
+    "type": "split",
+    "children": [
+      {
+        "id": "06de552d2257cf0c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a140d25601909aca",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "ad42313b1df9fdbc",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#Sytems",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "d95434f8d86358c7",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d05bfbf43c662528",
+    "type": "split",
+    "children": [
+      {
+        "id": "e165af5c75d4bf3c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "80a4a76da65b5a1f",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "55579f1e2e05f370",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "57be5e07e9e7302a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "9b559b114de6e2c1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          },
+          {
+            "id": "098e1e5c54883da2",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "obsidian-git:Open Git source control": false,
+      "switcher:Open quick switcher": false,
+      "bases:Create new base": false,
+      "syncthing-integration:Open Syncthing conflict manager modal": false,
+      "graph:Open graph view": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "callout-manager:Insert Callout": false,
+      "publish:Publish changes...": false
+    }
+  },
+  "active": "7bc01be68bcff3be",
+  "lastOpenFiles": [
+    "Book/Systems/Plant.md",
+    "source/content",
+    "source",
+    "2026-01-31.md",
+    "Book/Systems/Disturbances.md",
+    "Concept.md",
+    "FFT's.sync-conflict-20260128-113739-ZSA6EGO.md",
+    "Equation.md",
+    "Definition.md",
+    "Process.md",
+    "FFT's.sync-conflict-20260128-113708-ZSA6EGO.md",
+    "Book/Plots/Effects plot.md",
+    "FFT's.md",
+    "FFT's.sync-conflict-20260128-113608-ZSA6EGO.md",
+    "Book/START HERE.md",
+    "Book/Plots/Codomain.md",
+    "Book/Systems/Block Diagrams.md",
+    "Book/Plots/Domain Plot.md",
+    "Book/Plots/Domains.md",
+    "~$rocess.sync-conflict-20260105-075903-ZSA6EGO.md",
+    "~$rocess.md",
+    "Book/Systems/Systems.md",
+    "Untitled.base",
+    "Transfer Function.md",
+    "Transfer function.md",
+    "Strip Charts.md",
+    "Book/Measurement fundamentals/Discretization and ADC/Analog Conversion.md",
+    "Untitled.sync-conflict-20260103-144945-ZSA6EGO.md",
+    "Pasted image 20251228122646.sync-conflict-20251228-092804-ZSA6EGO.png",
+    "Resources/Pasted image 20251228122646.png",
+    "Pasted image 20251228122543.sync-conflict-20251228-092654-ZSA6EGO.png",
+    "Resources",
+    "Pasted image 20251228122543.png",
+    "Pasted image 20251228120119.sync-conflict-20251228-091634-ZSA6EGO.png",
+    "Book/PWM and motor control hardware",
+    "Book/Motors, performance, and torque",
+    "Book/Position sensing and encoding",
+    "Book/Numerical Methods",
+    "Book/Acceleration and velocity measurement",
+    "Book/Pressure and flow sensing",
+    "Pasted image 20251228115138.sync-conflict-20251228-090730-ZSA6EGO.png",
+    "Pasted image 20251228120119.png",
+    "Pasted image 20251228115138.png"
+  ]
+}
