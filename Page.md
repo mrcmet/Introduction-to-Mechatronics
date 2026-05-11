@@ -12,6 +12,15 @@ Notes:
 - A common pitfall, or how this differs from a closely related concept like [[related page]].
 - Meta-pointer: "The video below proves this," or "See [[other page]] for the derivation."
 
+## Equations
+> [!equation] Equation Name
+> $$\text{equation here}$$
+>
+> - $x$ — description (unit)
+> - $y$ — description (unit)
+
+*(One callout per new equation introduced on this page. Remove this section entirely if no new equations are introduced.)*
+
 ## Examples and Non-Examples
 - **Worked example.** A concrete instance with inline LaTeX like $V = IR$ or display math:
 $$\tau = J \alpha + b\omega$$

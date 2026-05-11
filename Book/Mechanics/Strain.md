@@ -20,6 +20,15 @@ Notes:
 - Within the elastic range, stress and strain are proportional through [[Young's modulus]]: $\sigma = E\varepsilon$ — the one-dimensional form of [[Hooke's law]] for solids.
 - Strain is what [[strain gauge\|strain gauges]] actually measure — they convert surface deformation into a change in electrical resistance, and stress is then back-calculated using the material's known $E$.
 
+## Equations
+
+> [!equation] Normal Strain
+> $$\varepsilon = \frac{\delta}{L_0}$$
+>
+> - $\varepsilon$ — axial strain (dimensionless, m/m; often reported in microstrain μɛ)
+> - $\delta$ — change in length: $\delta = L - L_0$ (m); positive = elongation, negative = shortening
+> - $L_0$ — original (unloaded) length (m)
+
 ## Examples and Non-Examples
 
 - **Tensile test.** A steel bar with original length $L_0 = 500\ \text{mm}$ is loaded in tension and elongates by $\delta = 0.30\ \text{mm}$. 

@@ -18,6 +18,16 @@ Notes:
 - Combining $E = \sigma/\varepsilon$ with $\sigma = F/A$ and $\varepsilon = \delta/L_0$ gives the [[axial deformation]] formula: $\delta = \frac{FL_0}{AE}$. This is the most-used form in practice.
 - Lateral strains accompany axial strain and are governed by [[Poisson's ratio]] $\nu$.
 
+## Equations
+
+> [!equation] Young's Modulus
+> $$E = \frac{\sigma}{\varepsilon}$$
+>
+> - $E$ — Young's modulus; stiffness of the material (Pa or GPa)
+> - $\sigma$ — [[Axial Stress]] in the linear elastic region (Pa)
+> - $\varepsilon$ — [[Strain]] in the linear elastic region (dimensionless, m/m)
+> - *Valid only below the [[Yield Strength]]*
+
 ## Examples and Non-Examples
 
 - **Finding $E$ from a tensile test.** A test coupon records $\sigma = 140\ \text{MPa}$ and $\varepsilon = 2{,}030\ \mu\varepsilon = 0.00203\ \text{m/m}$ in the elastic region.

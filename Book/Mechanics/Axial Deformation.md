@@ -15,6 +15,23 @@ Notes:
 - Deformation is a geometry-dependent quantity; [[strain]] is the geometry-independent version. Two rods of the same material under the same stress will deform differently if they have different lengths.
 - Do not confuse deformation with displacement. A rigid link can translate without deforming; $\delta = 0$ unless the member actually changes length.
 
+## Equations
+
+> [!equation] Axial Deformation
+> $$\delta = \frac{F L_0}{A E}$$
+>
+> - $\delta$ — change in length (m)
+> - $F$ — internal axial force (N)
+> - $L_0$ — original length (m)
+> - $A$ — cross-sectional area (m²)
+> - $E$ — [[Young's Modulus]] (Pa)
+
+> [!equation] Multi-Segment Deformation
+> $$\delta_{\text{total}} = \sum_i \frac{F_i L_i}{A_i E_i}$$
+>
+> - $\delta_{\text{total}}$ — total deformation of the assembly (m)
+> - $F_i,\ L_i,\ A_i,\ E_i$ — axial force, length, area, and Young's modulus of segment $i$
+
 ## Examples and Non-Examples
 
 - **Single member.** A 600 mm steel rod ($E = 200\ \text{GPa}$, $d = 20\ \text{mm}$) carries a tensile load $F = 25\ \text{kN}$.

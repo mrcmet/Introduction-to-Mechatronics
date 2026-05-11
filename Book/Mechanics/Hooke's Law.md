@@ -20,6 +20,16 @@ Notes:
 	- gives $\delta = FL_0/AE$.
 - Most metals (steel, aluminum, titanium) follow Hooke's law closely up to their proportional limit. Rubber and polymers are nonlinear even at small strains and generally do not obey Hooke's law.
 
+## Equations
+
+> [!equation] Hooke's Law (1D)
+> $$\sigma = E \varepsilon$$
+>
+> - $\sigma$ — axial stress (Pa)
+> - $E$ — [[Young's Modulus]] (Pa); the slope of the linear elastic region of the [[Stress-Strain Curve]]
+> - $\varepsilon$ — axial [[Strain]] (dimensionless, m/m)
+> - *Valid only below the proportional limit*
+
 ## Examples and Non-Examples
 
 - **Stress from strain.** A strain gauge on a steel beam ($E = 200\ \text{GPa}$) reads $\varepsilon = 1{,}200\ \mu\varepsilon = 1.2 \times 10^{-3}\ \text{m/m}$. Using Hooke's law:

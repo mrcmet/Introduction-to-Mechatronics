@@ -21,6 +21,15 @@ Notes:
 - This formula assumes the stress is uniformly distributed across the cross-section. That assumption holds away from points of load application — formally justified by [[Saint-Venant's principle]].
 
 
+## Equations
+
+> [!equation] Axial Stress
+> $$\sigma = \frac{F}{A}$$
+>
+> - $\sigma$ — axial stress (Pa or MPa)
+> - $F$ — internal axial force; positive = tension, negative = compression (N)
+> - $A$ — cross-sectional area (m²)
+
 ## Examples and Non-Examples
 
 - **Tensile rod.** A solid steel rod with diameter $d = 25\ \text{mm}$ carries a tensile load of $F = 12\ \text{kN}$. 
