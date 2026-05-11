@@ -1,5 +1,7 @@
 ---
-tags: [mechanics]
+tags:
+  - mechanics
+  - video
 ---
 #mechanics
 
@@ -8,8 +10,7 @@ tags: [mechanics]
 > **Axial stress** ($\sigma$) is the [[internal force]] per unit [[cross-sectional area]] that acts along the longitudinal axis of a structural member: $\sigma = F / A$. When the force pulls the member apart the stress is **tensile** ($\sigma > 0$); when it squeezes the member together it is **compressive** ($\sigma < 0$).
 
 Axial stress is a special case of [[normal stress]] — "normal" meaning perpendicular to the face it acts on. Contrast with [[shear stress]], which acts *parallel* to the face.
-
-- Axial stress and [[strain]] are related through [[Young's modulus]]: $\sigma = E \varepsilon$. This is the one-dimensional form of [[Hooke's law]] for solids.
+Axial stress and [[strain]] are related through [[Young's modulus]]: $\sigma = E \varepsilon$. This is the one-dimensional form of [[Hooke's law]] for solids.
 
 Notes:
 - Units are pascals (Pa) or megapascals (MPa). $1\ \text{MPa} = 10^6\ \text{N/m}^2$, which is convenient for most structural materials.
@@ -35,6 +36,17 @@ Notes:
 ## Resources
 - ![](https://www.youtube.com/watch?v=f08Y39UiC-o)
 - **[Engineering Toolbox — Stress](https://www.engineeringtoolbox.com/stress-d_950.html)** — quick reference with unit conversions and material yield values.
+
+## Interactive Explorer
+
+<iframe
+  src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/axial-stress-explorer.html"
+  width="100%"
+  height="1350"
+  style="border: none; border-radius: 8px;"
+  loading="lazy"
+  title="Axial stress interactive explorer — cross sections, tension diagram, and practice problems">
+</iframe>
 
 ## Practice
 - A hollow aluminum tube has an outer diameter of $40\ \text{mm}$ and a wall thickness of $3\ \text{mm}$. It carries a compressive load of $8\ \text{kN}$. What is the axial stress? Is this tensile or compressive?

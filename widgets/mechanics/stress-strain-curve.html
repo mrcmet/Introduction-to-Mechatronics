@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_blank">
+  <title>Hooke's Law — Stress–Strain Curve</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent:         #c2410c;
+      --accent-tint:    #ffedd5;
+      --accent-on-tint: #9a3412;
+      --bg:             #ffffff;
+      --text:           #1a1a1a;
+      --text-2:         #6b7280;
+      --text-3:         #9ca3af;
+      --border:         #e5e7eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent:         #fb923c;
+        --accent-tint:    #7c2d12;
+        --accent-on-tint: #fed7aa;
+        --bg:             #1e1e2e;
+        --text:           #cdd6f4;
+        --text-2:         #a6adc8;
+        --text-3:         #6c7086;
+        --border:         #313244;
+      }
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: transparent;
+      color: var(--text);
+      padding: 16px;
+    }
+    .widget {
+      padding: 1.5rem 1.75rem;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+    }
+    .display-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 0.3rem;
+    }
+    .byline {
+      font-size: 12px;
+      color: var(--text-2);
+      letter-spacing: 0.05em;
+      padding-bottom: 0.75rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0.75rem;
+    }
+    .control label { font-size: 13px; color: var(--text-2); width: 120px; flex-shrink: 0; }
+    .control input[type=range] { flex: 1; accent-color: var(--accent); }
+    .control .readout {
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+      font-weight: 500;
+      min-width: 80px;
+      text-align: right;
+    }
+    .region-callout {
+      padding: 8px 12px;
+      border-left: 3px solid;
+      border-radius: 0;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .region-linear    { background: #dcfce7; color: #14532d; border-left-color: #15803d; }
+    .region-nonlinear { background: #fef9c3; color: #713f12; border-left-color: #ca8a04; }
+    .region-plastic   { background: #fee2e2; color: #7f1d1d; border-left-color: #b91c1c; }
+    @media (prefers-color-scheme: dark) {
+      .region-linear    { background: #14532d; color: #bbf7d0; border-left-color: #4ade80; }
+      .region-nonlinear { background: #713f12; color: #fef08a; border-left-color: #facc15; }
+      .region-plastic   { background: #7f1d1d; color: #fecaca; border-left-color: #f87171; }
+    }
+    .callout-label { font-weight: 500; }
+    .readouts { display: flex; gap: 16px; margin-top: 0.5rem; }
+    .readout-block { flex: 1; }
+    .answer-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      text-align: center;
+      margin-bottom: 0.25rem;
+    }
+    .answer-block {
+      border-top: 1px solid var(--accent);
+      border-bottom: 1px solid var(--accent);
+      padding: 10px 0;
+      text-align: center;
+      font-family: ui-monospace, monospace;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    .note { font-size: 11px; color: var(--text-3); font-style: italic; margin-top: 0.5rem; }
+    @media (max-width: 480px) {
+      .widget { padding: 1rem 1.1rem; }
+      .display-title { font-size: 18px; }
+      .control { flex-wrap: wrap; }
+      .control label { width: 100%; }
+      .readouts { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Stress–strain curve for aluminium 6061-T6 showing linear elastic, nonlinear elastic, and plastic deformation regions</h2>
+    <p class="display-title">Stress–strain curve</p>
+    <p class="byline">MECHANICS · Hooke's law and material behavior · Al 6061-T6 (representative)</p>
+
+    <svg id="ss-svg" viewBox="0 0 540 265" style="width:100%;height:auto;display:block;margin-bottom:0.75rem;overflow:visible" role="img" aria-label="Interactive stress-strain curve"></svg>
+
+    <div class="control">
+      <label for="s-slider">Drag point along curve</label>
+      <input type="range" id="s-slider" min="0" max="199" step="1" value="0" />
+      <span class="readout" id="s-readout">ε = 0.000%</span>
+    </div>
+
+    <div class="region-callout region-linear" id="region-box">
+      <span class="callout-label" id="region-label">Linear elastic</span><span id="region-desc"> — Hooke's law applies: stress is proportional to strain. Removing the load returns the material to its original length.</span>
+    </div>
+
+    <div class="readouts">
+      <div class="readout-block">
+        <p class="answer-label">STRESS</p>
+        <div class="answer-block" id="sigma-out">σ = 0 MPa</div>
+      </div>
+      <div class="readout-block">
+        <p class="answer-label">STRAIN</p>
+        <div class="answer-block" id="eps-out">ε = 0.000%</div>
+      </div>
+    </div>
+    <p class="note">Elastic region enlarged for visual clarity · values representative of Al 6061-T6</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+  <script>
+    // ── Material constants ─────────────────────────────────────────
+    const E_MPa    = 69000;
+    const EPS_PL   = 0.0029, SIGMA_PL = 200;   // proportional limit
+    const EPS_Y    = 0.006,  SIGMA_Y  = 276;   // 0.2% offset yield
+    const EPS_U    = 0.09,   SIGMA_U  = 310;   // UTS
+    const EPS_F    = 0.12,   SIGMA_F  = 270;   // fracture (eng. stress)
+
+    function stressAt(eps) {
+      if (eps <= EPS_PL) {
+        return E_MPa * eps;
+      } else if (eps <= EPS_Y) {
+        const t = (eps - EPS_PL) / (EPS_Y - EPS_PL);
+        const h = 3*t*t - 2*t*t*t;  // smoothstep
+        return SIGMA_PL + (SIGMA_Y - SIGMA_PL) * h;
+      } else if (eps <= EPS_U) {
+        const t = (eps - EPS_Y) / (EPS_U - EPS_Y);
+        return SIGMA_Y + (SIGMA_U - SIGMA_Y) * Math.pow(t, 0.35);
+      } else {
+        const t = (eps - EPS_U) / (EPS_F - EPS_U);
+        return SIGMA_U - (SIGMA_U - SIGMA_F) * (1 - Math.pow(1 - t, 2));
+      }
+    }
+
+    function regionOf(eps) {
+      if (eps <= EPS_PL) return 'linear';
+      if (eps <= EPS_Y)  return 'nonlinear';
+      return 'plastic';
+    }
+
+    // ── Parametric curve (equal slider resolution per region) ──────
+    const N1 = 60, N2 = 50, N3 = 90;  // slider steps per region
+    function curvePoint(i) {
+      let eps;
+      if (i < N1) {
+        eps = (i / (N1 - 1)) * EPS_PL;
+      } else if (i < N1 + N2) {
+        const t = (i - N1) / (N2 - 1);
+        eps = EPS_PL + t * (EPS_Y - EPS_PL);
+      } else {
+        const t = (i - N1 - N2) / (N3 - 1);
+        eps = EPS_Y + t * (EPS_F - EPS_Y);
+      }
+      return { eps, sigma: stressAt(eps) };
+    }
+
+    // ── SVG layout ─────────────────────────────────────────────────
+    const PL = 58, PR = 524, PT = 20, PB = 238;
+    const PH = PB - PT;  // 218
+
+    // Non-linear x mapping: elastic region enlarged
+    const W1 = 140, W2 = 96, W3 = (PR - PL) - W1 - W2;  // 230
+    const X_PL = PL + W1;       // 198
+    const X_Y  = PL + W1 + W2;  // 294
+
+    function svgX(eps) {
+      if (eps <= EPS_PL) {
+        return PL + (eps / EPS_PL) * W1;
+      } else if (eps <= EPS_Y) {
+        return X_PL + ((eps - EPS_PL) / (EPS_Y - EPS_PL)) * W2;
+      } else {
+        return X_Y + ((eps - EPS_Y) / (EPS_F - EPS_Y)) * W3;
+      }
+    }
+    function svgY(s) { return PB - (s / 360) * PH; }
+
+    // ── Precompute polyline ────────────────────────────────────────
+    const allPts = Array.from({length: 200}, (_, i) => curvePoint(i));
+    const polyStr = allPts.map(p => `${svgX(p.eps).toFixed(1)},${svgY(p.sigma).toFixed(1)}`).join(' ');
+
+    // ── Colour palette ─────────────────────────────────────────────
+    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const C = {
+      axis:    dark ? '#a6adc8' : '#9ca3af',
+      grid:    dark ? '#313244' : '#e5e7eb',
+      txt:     dark ? '#a6adc8' : '#6b7280',
+      curve:   dark ? '#fb923c' : '#c2410c',
+      hLine:   dark ? '#60a5fa' : '#1d4ed8',
+      marker:  dark ? '#fb923c' : '#c2410c',
+      drop:    dark ? 'rgba(251,146,60,0.35)' : 'rgba(194,65,12,0.35)',
+      bL:  dark ? 'rgba(74,222,128,0.13)'  : 'rgba(34,197,94,0.12)',
+      bNL: dark ? 'rgba(250,204,21,0.13)'  : 'rgba(234,179,8,0.12)',
+      bP:  dark ? 'rgba(248,113,113,0.13)' : 'rgba(239,68,68,0.1)',
+      lL:  dark ? '#4ade80' : '#16a34a',
+      lNL: dark ? '#facc15' : '#b45309',
+      lP:  dark ? '#f87171' : '#b91c1c',
+      bgM: dark ? '#1e1e2e' : '#ffffff',
+    };
+
+    // ── Build SVG ─────────────────────────────────────────────────
+    function buildSVG() {
+      const svg = document.getElementById('ss-svg');
+      let h = '';
+
+      // Region background bands
+      h += `<rect x="${PL}" y="${PT}" width="${W1}" height="${PH}" fill="${C.bL}"/>`;
+      h += `<rect x="${X_PL}" y="${PT}" width="${W2}" height="${PH}" fill="${C.bNL}"/>`;
+      h += `<rect x="${X_Y}" y="${PT}" width="${W3}" height="${PH}" fill="${C.bP}"/>`;
+
+      // Region boundary dashed verticals
+      h += `<line x1="${X_PL}" y1="${PT}" x2="${X_PL}" y2="${PB}" stroke="${C.lNL}" stroke-width="1" stroke-dasharray="4 3"/>`;
+      h += `<line x1="${X_Y}"  y1="${PT}" x2="${X_Y}"  y2="${PB}" stroke="${C.lP}"  stroke-width="1" stroke-dasharray="4 3"/>`;
+
+      // Region labels
+      const lblY = PT + 12;
+      h += `<text x="${(PL + W1/2).toFixed(1)}" y="${lblY}" text-anchor="middle" fill="${C.lL}"  font-family="system-ui,sans-serif" font-size="10" font-weight="500">Linear elastic</text>`;
+      h += `<text x="${(X_PL + W2/2).toFixed(1)}" y="${lblY}" text-anchor="middle" fill="${C.lNL}" font-family="system-ui,sans-serif" font-size="10" font-weight="500">Nonlinear elastic</text>`;
+      h += `<text x="${(X_Y + W3/2).toFixed(1)}"  y="${lblY}" text-anchor="middle" fill="${C.lP}"  font-family="system-ui,sans-serif" font-size="10" font-weight="500">Plastic deformation</text>`;
+
+      // Hooke's law reference line (dotted, to proportional limit)
+      h += `<line x1="${PL}" y1="${PB}" x2="${X_PL.toFixed(1)}" y2="${svgY(SIGMA_PL).toFixed(1)}" stroke="${C.hLine}" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.7"/>`;
+      // Extended faint to yield
+      h += `<line x1="${X_PL}" y1="${svgY(SIGMA_PL).toFixed(1)}" x2="${X_Y}" y2="${svgY(SIGMA_Y).toFixed(1)}" stroke="${C.hLine}" stroke-width="1" stroke-dasharray="2 4" opacity="0.35"/>`;
+
+      // Y gridlines + labels
+      for (const s of [100, 200, 276, 310]) {
+        const y = svgY(s).toFixed(1);
+        h += `<line x1="${PL}" y1="${y}" x2="${PR}" y2="${y}" stroke="${C.grid}" stroke-width="0.5"/>`;
+        h += `<text x="${PL - 5}" y="${(parseFloat(y) + 4).toFixed(1)}" text-anchor="end" fill="${C.txt}" font-family="ui-monospace,monospace" font-size="10">${s}</text>`;
+      }
+
+      // Axes
+      h += `<line x1="${PL}" y1="${PT}" x2="${PL}" y2="${PB}" stroke="${C.axis}" stroke-width="0.75"/>`;
+      h += `<line x1="${PL}" y1="${PB}" x2="${PR}" y2="${PB}" stroke="${C.axis}" stroke-width="0.75"/>`;
+
+      // Y-axis label
+      const mx = 14, my = (PT + PH / 2).toFixed(1);
+      h += `<text x="${mx}" y="${my}" text-anchor="middle" fill="${C.txt}" font-family="system-ui,sans-serif" font-size="10" letter-spacing="0.04em" transform="rotate(-90,${mx},${my})">σ (MPa)</text>`;
+
+      // X-axis ticks and labels
+      const ticks = [
+        [0,      '0'],
+        [0.001,  '0.10%'],
+        [0.002,  '0.20%'],
+        [EPS_PL, '0.29%'],
+        [EPS_Y,  '0.60%'],
+        [0.03,   '3%'],
+        [0.07,   '7%'],
+        [EPS_F,  '12%'],
+      ];
+      for (const [eps, lbl] of ticks) {
+        const x = svgX(eps).toFixed(1);
+        h += `<line x1="${x}" y1="${PB}" x2="${x}" y2="${PB + 4}" stroke="${C.axis}" stroke-width="0.75"/>`;
+        h += `<text x="${x}" y="${PB + 14}" text-anchor="middle" fill="${C.txt}" font-family="ui-monospace,monospace" font-size="9.5">${lbl}</text>`;
+      }
+
+      // Scale break marks on x-axis
+      for (const bx of [X_PL, X_Y]) {
+        h += `<path d="M${bx - 5} ${PB + 1} L${bx - 1} ${PB - 3} L${bx + 1} ${PB + 3} L${bx + 5} ${PB - 1}" fill="none" stroke="${C.axis}" stroke-width="1.2"/>`;
+      }
+
+      // X-axis label
+      h += `<text x="${((PL + PR) / 2).toFixed(1)}" y="${PB + 28}" text-anchor="middle" fill="${C.txt}" font-family="system-ui,sans-serif" font-size="10" letter-spacing="0.04em">ε (strain) — elastic region enlarged</text>`;
+
+      // Stress–strain curve
+      h += `<polyline points="${polyStr}" fill="none" stroke="${C.curve}" stroke-width="2" stroke-linejoin="round"/>`;
+
+      // Dynamic elements (updated by update())
+      h += `<line id="drop-v" stroke="${C.drop}" stroke-width="0.75" stroke-dasharray="2 2"/>`;
+      h += `<line id="drop-h" stroke="${C.drop}" stroke-width="0.75" stroke-dasharray="2 2"/>`;
+      h += `<circle id="pt-marker" r="5.5" fill="${C.marker}" stroke="${C.bgM}" stroke-width="2"/>`;
+
+      svg.innerHTML = h;
+    }
+
+    // ── Update point ───────────────────────────────────────────────
+    const REGIONS = {
+      linear: {
+        cls:   'region-linear',
+        label: 'Linear elastic',
+        desc:  ' — Hooke\'s law applies: stress is directly proportional to strain (σ = Eε). The curve is a straight line. Removing the load fully recovers the original length.',
+      },
+      nonlinear: {
+        cls:   'region-nonlinear',
+        label: 'Nonlinear elastic',
+        desc:  ' — Stress and strain no longer scale linearly, but the deformation is still fully recoverable. Hooke\'s law does not apply. The material is approaching its yield point.',
+      },
+      plastic: {
+        cls:   'region-plastic',
+        label: 'Plastic deformation',
+        desc:  ' — The material has yielded. Removing the load will not recover the full original shape — a permanent set remains. The part is permanently deformed.',
+      },
+    };
+
+    function update(i) {
+      const pt = curvePoint(parseInt(i));
+      const x  = svgX(pt.eps).toFixed(1);
+      const y  = svgY(pt.sigma).toFixed(1);
+
+      document.getElementById('pt-marker').setAttribute('cx', x);
+      document.getElementById('pt-marker').setAttribute('cy', y);
+      document.getElementById('drop-v').setAttribute('x1', x);
+      document.getElementById('drop-v').setAttribute('y1', y);
+      document.getElementById('drop-v').setAttribute('x2', x);
+      document.getElementById('drop-v').setAttribute('y2', PB);
+      document.getElementById('drop-h').setAttribute('x1', PL);
+      document.getElementById('drop-h').setAttribute('y1', y);
+      document.getElementById('drop-h').setAttribute('x2', x);
+      document.getElementById('drop-h').setAttribute('y2', y);
+
+      const epsStr   = (pt.eps * 100).toFixed(3) + '%';
+      const sigmaStr = Math.round(pt.sigma) + ' MPa';
+
+      document.getElementById('s-readout').textContent = 'ε = ' + epsStr;
+      document.getElementById('sigma-out').textContent = 'σ = ' + sigmaStr;
+      document.getElementById('eps-out').textContent   = 'ε = ' + epsStr;
+
+      const r   = regionOf(pt.eps);
+      const def = REGIONS[r];
+      const box = document.getElementById('region-box');
+      box.className = 'region-callout ' + def.cls;
+      document.getElementById('region-label').textContent = def.label;
+      document.getElementById('region-desc').textContent  = def.desc;
+    }
+
+    buildSVG();
+    update(0);
+    document.getElementById('s-slider').addEventListener('input', function () { update(this.value); });
+
+    renderMathInElement(document.body, {
+      delimiters: [{ left: '$$', right: '$$', display: true }, { left: '\\(', right: '\\)', display: false }],
+      throwOnError: false,
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_blank">
+  <title>Axial Stress Explorer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #c2410c; --accent-tint: #ffedd5; --bg: #ffffff;
+      --text: #1a1a1a; --text-2: #6b7280; --text-3: #9ca3af; --border: #e5e7eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent: #fb923c; --accent-tint: #7c2d12; --bg: #1e1e2e;
+        --text: #cdd6f4; --text-2: #a6adc8; --text-3: #6c7086; --border: #313244;
+      }
+    }
+    body { font-family: system-ui,-apple-system,sans-serif; background:transparent; color:var(--text); padding:16px; }
+    .widget { padding:1.5rem 1.75rem; border:0.5px solid var(--border); border-radius:8px; background:var(--bg); }
+    .display-title { font-family:'Source Serif 4',Georgia,serif; font-size:24px; font-weight:500; margin-bottom:0.4rem; }
+    .byline { font-size:12px; color:var(--text-2); letter-spacing:.05em; padding-bottom:.75rem; border-bottom:.5px solid var(--border); margin-bottom:1.25rem; }
+    .body { font-size:15px; line-height:1.65; margin-bottom:.8rem; }
+    .marginalia { font-family:Georgia,serif; font-style:italic; font-size:13px; color:var(--text-2); border-left:2px solid var(--accent); padding-left:12px; margin:1rem 0; }
+    .eq-display { text-align:center; margin:.9rem 0; overflow-x:auto; }
+    .answer-label { font-size:11px; letter-spacing:.1em; color:var(--text-3); text-align:center; margin-top:.75rem; margin-bottom:.25rem; }
+    .answer-block { border-top:1px solid var(--accent); border-bottom:1px solid var(--accent); padding:12px 0; text-align:center; font-family:ui-monospace,monospace; font-size:18px; font-weight:500; }
+    .callout { padding:8px 12px; border-left:3px solid; font-size:13px; line-height:1.5; margin-bottom:8px; }
+    .callout-label { font-weight:500; }
+    .callout-success { background:#dcfce7; color:#14532d; border-left-color:#15803d; }
+    .callout-warning { background:#fef9c3; color:#713f12; border-left-color:#ca8a04; }
+    .callout-error   { background:#fee2e2; color:#7f1d1d; border-left-color:#b91c1c; }
+    .callout-info    { background:#dbeafe; color:#1e3a8a; border-left-color:#1d4ed8; }
+    @media (prefers-color-scheme: dark) {
+      .callout-success { background:#14532d; color:#bbf7d0; border-left-color:#4ade80; }
+      .callout-warning { background:#713f12; color:#fef08a; border-left-color:#facc15; }
+      .callout-error   { background:#7f1d1d; color:#fecaca; border-left-color:#f87171; }
+      .callout-info    { background:#1e3a8a; color:#bfdbfe; border-left-color:#60a5fa; }
+    }
+    .control { display:flex; align-items:center; gap:12px; margin-bottom:.75rem; }
+    .control label { font-size:13px; color:var(--text-2); width:145px; flex-shrink:0; }
+    .control input[type=range] { flex:1; accent-color:var(--accent); }
+    .control .readout { font-family:ui-monospace,monospace; font-size:14px; font-weight:500; min-width:72px; text-align:right; }
+    .btn-row { display:flex; gap:8px; justify-content:flex-end; margin-top:1.25rem; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:6px; padding:.45rem 1.1rem; border-radius:6px; font-size:13px; font-family:system-ui,sans-serif; cursor:pointer; font-weight:500; line-height:1; }
+    .btn-primary { background:var(--accent); color:#fff; border:none; }
+    .btn-primary:hover { opacity:.88; }
+    .btn-secondary { background:transparent; color:var(--accent); border:.5px solid var(--accent); font-weight:400; }
+    .btn-secondary:hover { background:var(--accent-tint); }
+    hr.div { border:none; border-top:.5px solid var(--border); margin:1.5rem 0; }
+    .sh { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3); margin-bottom:1rem; }
+    .cs-tabs { display:flex; gap:6px; margin-bottom:1.25rem; flex-wrap:wrap; }
+    .cs-tab { padding:5px 14px; border-radius:4px; border:.5px solid var(--border); font-size:13px; cursor:pointer; background:var(--bg); color:var(--text-2); }
+    .cs-tab.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:start; }
+    .prac-input-row { display:flex; gap:8px; align-items:center; margin-top:.75rem; }
+    .prac-input { flex:1; padding:8px 12px; border:.5px solid var(--border); border-radius:6px; font-family:ui-monospace,monospace; font-size:15px; background:var(--bg); color:var(--text); }
+    .prac-input:focus { outline:none; border-color:var(--accent); }
+    .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+    @media (max-width:480px) {
+      .widget { padding:1rem 1.1rem; } .display-title { font-size:20px; } .body { font-size:14px; }
+      .control { flex-wrap:wrap; gap:4px; } .control label { width:100%; }
+      .btn-row { justify-content:stretch; } .btn { flex:1; justify-content:center; }
+      .two-col { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<h2 class="sr-only">Axial Stress interactive explorer — cross sections, tension diagram, and practice problems</h2>
+<div class="widget">
+
+  <p class="display-title">Axial Stress</p>
+  <p class="byline">MECHANICS OF MATERIALS · Normal Stress Under Uniaxial Tension</p>
+  <p class="body">When a force \(F\) is applied along the centroidal axis of a prismatic member, a uniform normal stress develops across every cross section:</p>
+  <div class="eq-display">$$\sigma = \frac{F}{A}$$</div>
+  <p class="marginalia">Because stress is force per unit area, the convenient engineering unit is MPa = N/mm². If \(F\) is in kN and \(A\) in mm², multiply by 1000 first: \(\sigma\,[\text{MPa}] = F\,[\text{kN}] \times 1000 \;/\; A\,[\text{mm}^2]\).</p>
+
+  <!-- ── CROSS SECTION EXPLORER ── -->
+  <hr class="div">
+  <p class="sh">Cross Section Explorer</p>
+  <div class="cs-tabs">
+    <button class="cs-tab active" onclick="selectCS('circle',this)">● Solid Circle</button>
+    <button class="cs-tab" onclick="selectCS('rectangle',this)">▬ Rectangle</button>
+    <button class="cs-tab" onclick="selectCS('hollow',this)">◎ Hollow Circle</button>
+    <button class="cs-tab" onclick="selectCS('ibeam',this)">⊤ I-Beam</button>
+  </div>
+  <div class="two-col">
+    <div>
+      <div id="cs-controls"></div>
+      <div class="control" style="margin-top:.6rem;padding-top:.6rem;border-top:.5px solid var(--border)">
+        <label for="F-slider">Applied force \(F\)</label>
+        <input type="range" id="F-slider" min="5" max="500" step="5" value="100" oninput="updateAll()">
+        <span class="readout" id="F-ro">100 kN</span>
+      </div>
+      <p class="answer-label">CROSS-SECTIONAL AREA</p>
+      <div class="answer-block" id="area-out">—</div>
+      <p class="answer-label">AXIAL STRESS \(\;\sigma = F \,/\, A\)</p>
+      <div class="answer-block" id="sigma-out">—</div>
+      <p id="formula-line" style="text-align:center;font-size:12px;color:var(--text-3);margin-top:.6rem"></p>
+    </div>
+    <div>
+      <svg id="cs-svg" viewBox="0 0 200 200" style="width:100%;height:auto;display:block;border:.5px solid var(--border);border-radius:4px;background:var(--bg)"></svg>
+      <p id="cs-sub" style="font-size:11px;text-align:center;color:var(--text-3);font-family:ui-monospace,monospace;margin-top:5px">A = —</p>
+    </div>
+  </div>
+
+  <!-- ── TENSION DIAGRAM ── -->
+  <hr class="div">
+  <p class="sh">Tension Diagram</p>
+  <p class="body">Equal and opposite forces stretch the member along its axis. A section cut reveals the stress — every mm² of cross-sectional area carries exactly the same load. The bar color deepens as stress increases.</p>
+
+  <svg id="t-svg" viewBox="0 0 520 175" style="width:100%;height:auto;display:block;margin:.5rem 0">
+    <defs>
+      <marker id="t-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 Z" fill="#c2410c"/>
+      </marker>
+    </defs>
+    <g opacity="0.3">
+      <line x1="0" y1="40" x2="520" y2="40" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="0" y1="80" x2="520" y2="80" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="0" y1="120" x2="520" y2="120" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="0" y1="160" x2="520" y2="160" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="40"  y1="0" x2="40"  y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="80"  y1="0" x2="80"  y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="120" y1="0" x2="120" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="160" y1="0" x2="160" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="200" y1="0" x2="200" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="240" y1="0" x2="240" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="280" y1="0" x2="280" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="320" y1="0" x2="320" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="360" y1="0" x2="360" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="400" y1="0" x2="400" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="440" y1="0" x2="440" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+      <line x1="480" y1="0" x2="480" y2="175" stroke="#9ca3af" stroke-width="0.4"/>
+    </g>
+    <rect id="t-bar" x="132" y="62" width="258" height="48" rx="2" fill="#ffedd5" stroke="#c2410c" stroke-width="1.2"/>
+    <line x1="261" y1="47" x2="261" y2="128" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="264" y="46" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="9">cut</text>
+    <g id="t-stress" opacity="0.55">
+      <line x1="148" y1="71"  x2="252" y2="71"  stroke="#c2410c" stroke-width="0.9" stroke-dasharray="5 2"/>
+      <line x1="148" y1="81"  x2="252" y2="81"  stroke="#c2410c" stroke-width="0.9" stroke-dasharray="5 2"/>
+      <line x1="148" y1="91"  x2="252" y2="91"  stroke="#c2410c" stroke-width="0.9" stroke-dasharray="5 2"/>
+      <line x1="148" y1="101" x2="252" y2="101" stroke="#c2410c" stroke-width="0.9" stroke-dasharray="5 2"/>
+    </g>
+    <line x1="132" y1="52" x2="132" y2="128" stroke="#9ca3af" stroke-width="1.5"/>
+    <line x1="120" y1="52"  x2="132" y2="62"  stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="120" y1="64"  x2="132" y2="74"  stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="120" y1="76"  x2="132" y2="86"  stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="120" y1="88"  x2="132" y2="98"  stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="120" y1="100" x2="132" y2="110" stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="120" y1="112" x2="132" y2="122" stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="390" y1="52" x2="390" y2="128" stroke="#9ca3af" stroke-width="1.5"/>
+    <line id="t-larr" x1="128" y1="86" x2="65" y2="86" stroke="#c2410c" stroke-width="2.2" marker-end="url(#t-arr)"/>
+    <line id="t-rarr" x1="394" y1="86" x2="457" y2="86" stroke="#c2410c" stroke-width="2.2" marker-end="url(#t-arr)"/>
+    <text id="t-lF" x="50"  y="82" fill="#c2410c" font-family="Georgia,serif" font-style="italic" font-size="15">F</text>
+    <text id="t-rF" x="462" y="82" fill="#c2410c" font-family="Georgia,serif" font-style="italic" font-size="15">F</text>
+    <text id="t-sigma" x="261" y="150" fill="#c2410c" font-family="ui-monospace,monospace" font-size="11.5" font-weight="600" text-anchor="middle">σ = — MPa (tension)</text>
+    <text x="261" y="165" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="9" text-anchor="middle">uniform across cross section</text>
+  </svg>
+  <p class="marginalia">Positive \(\sigma\) means tension — the member is being pulled. The internal stress is the same at every cross section along the member length; this is what makes axially loaded members analytically clean.</p>
+
+  <!-- ── PRACTICE ── -->
+  <hr class="div">
+  <p class="sh">Practice Problems</p>
+  <div style="border:.5px solid var(--border);border-radius:8px;padding:1.1rem 1.4rem">
+    <p class="body" id="p-prompt" style="min-height:2.5rem">Press <em>New Problem</em> to receive a random axial stress problem.</p>
+    <div id="p-diag" style="margin:.75rem 0"></div>
+    <div class="prac-input-row" id="p-input-row" style="display:none">
+      <input type="number" class="prac-input" id="p-ans" placeholder="Your answer" step="0.01"
+             onkeydown="if(event.key==='Enter')checkAns()">
+      <span style="font-size:13px;color:var(--text-2);white-space:nowrap">MPa</span>
+    </div>
+    <div id="p-fb" style="margin-top:.75rem"></div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="hint-btn" onclick="showHint()" style="display:none">Hint</button>
+      <button class="btn btn-secondary" id="check-btn" onclick="checkAns()" style="display:none">Check Answer</button>
+      <button class="btn btn-primary" onclick="newProblem()">New Problem</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+let curCS = 'circle', pracState = null;
+
+const CS = {
+  circle: {
+    formula: 'A = \\frac{\\pi d^2}{4}',
+    sliders: [{id:'cs-d', label:'Diameter \\(d\\)', min:10, max:200, step:2, val:80, unit:'mm'}],
+    area() { return Math.PI * v('cs-d')**2 / 4; },
+    draw(svg) {
+      const d=v('cs-d'), sc=140/200, r=d/2*sc, cx=100, cy=95;
+      svg.innerHTML = gridDefs()+`
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#c2410c" stroke-width="1.5"/>
+        <line x1="${cx-r}" y1="${cy}" x2="${cx+r}" y2="${cy}" stroke="#9ca3af" stroke-width="0.6" stroke-dasharray="3 2"/>
+        <line x1="${cx-r}" y1="${cy+r+14}" x2="${cx+r}" y2="${cy+r+14}" stroke="#9ca3af" stroke-width="0.5" marker-start="url(#da)" marker-end="url(#da)"/>
+        <text x="${cx}" y="${cy+r+26}" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="11" text-anchor="middle">d = ${d} mm</text>`;
+    }
+  },
+  rectangle: {
+    formula: 'A = b \\times h',
+    sliders: [
+      {id:'cs-b', label:'Width \\(b\\)',  min:10, max:200, step:2, val:80,  unit:'mm'},
+      {id:'cs-h', label:'Height \\(h\\)', min:10, max:200, step:2, val:120, unit:'mm'}
+    ],
+    area() { return v('cs-b')*v('cs-h'); },
+    draw(svg) {
+      const b=v('cs-b'), h=v('cs-h'), sc=140/200;
+      const pw=b*sc, ph=h*sc, x0=(200-pw)/2, y0=(200-ph)/2;
+      svg.innerHTML = gridDefs()+`
+        <rect x="${x0}" y="${y0}" width="${pw}" height="${ph}" fill="none" stroke="#c2410c" stroke-width="1.5"/>
+        <line x1="${x0}" y1="${y0+ph+14}" x2="${x0+pw}" y2="${y0+ph+14}" stroke="#9ca3af" stroke-width="0.5" marker-start="url(#da)" marker-end="url(#da)"/>
+        <text x="100" y="${y0+ph+26}" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="11" text-anchor="middle">b = ${b} mm</text>
+        <line x1="${x0-14}" y1="${y0}" x2="${x0-14}" y2="${y0+ph}" stroke="#9ca3af" stroke-width="0.5" marker-start="url(#da)" marker-end="url(#da)"/>
+        <text x="${x0-18}" y="100" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="11" text-anchor="middle" transform="rotate(-90,${x0-18},100)">h = ${h} mm</text>`;
+    }
+  },
+  hollow: {
+    formula: 'A = \\frac{\\pi}{4}(D^2 - d^2)',
+    sliders: [
+      {id:'cs-D',  label:'Outer dia. \\(D\\)', min:30,  max:200, step:2, val:120, unit:'mm'},
+      {id:'cs-di', label:'Inner dia. \\(d\\)',  min:10,  max:180, step:2, val:80,  unit:'mm'}
+    ],
+    area() {
+      const D=v('cs-D'), d=Math.min(v('cs-di'),D-6);
+      return Math.PI*(D*D-d*d)/4;
+    },
+    draw(svg) {
+      const D=v('cs-D'), d=Math.min(v('cs-di'),D-6), sc=140/200;
+      const Ro=D/2*sc, Ri=d/2*sc, cx=100, cy=95;
+      svg.innerHTML = gridDefs()+`
+        <circle cx="${cx}" cy="${cy}" r="${Ro}" fill="none" stroke="#c2410c" stroke-width="1.5"/>
+        <circle cx="${cx}" cy="${cy}" r="${Ri}" fill="none" stroke="#c2410c" stroke-width="1.2" stroke-dasharray="5 3"/>
+        <line x1="${cx}" y1="${cy}" x2="${cx+Ro}" y2="${cy}" stroke="#9ca3af" stroke-width="0.5" stroke-dasharray="3 2"/>
+        <text x="${cx+Ro/2+2}" y="${cy-6}" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="10">D/2</text>
+        <text x="100" y="${cy+Ro+24}" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="10" text-anchor="middle">D=${D} mm  d=${d} mm</text>`;
+    }
+  },
+  ibeam: {
+    formula: 'A = 2bt_f + (H-2t_f)\\,t_w',
+    sliders: [
+      {id:'ib-b',  label:'Flange width \\(b\\)',   min:40,  max:160, step:2, val:100, unit:'mm'},
+      {id:'ib-H',  label:'Total height \\(H\\)',   min:60,  max:200, step:2, val:150, unit:'mm'},
+      {id:'ib-tf', label:'Flange thick \\(t_f\\)', min:4,   max:30,  step:1, val:12,  unit:'mm'},
+      {id:'ib-tw', label:'Web thick \\(t_w\\)',    min:4,   max:20,  step:1, val:8,   unit:'mm'}
+    ],
+    area() {
+      const b=v('ib-b'),H=v('ib-H'),tf=v('ib-tf'),tw=v('ib-tw');
+      return 2*b*tf+(H-2*tf)*tw;
+    },
+    draw(svg) {
+      const b=v('ib-b'),H=v('ib-H'),tf=v('ib-tf'),tw=v('ib-tw'),sc=140/200;
+      const pb=b*sc,pH=H*sc,ptf=tf*sc,ptw=tw*sc;
+      const x0=(200-pb)/2, y0=(200-pH)/2, cx=100;
+      const wl=cx-ptw/2, wr=cx+ptw/2;
+      const pts=[
+        [x0,y0],[x0+pb,y0],[x0+pb,y0+ptf],[wr,y0+ptf],
+        [wr,y0+pH-ptf],[x0+pb,y0+pH-ptf],[x0+pb,y0+pH],
+        [x0,y0+pH],[x0,y0+pH-ptf],[wl,y0+pH-ptf],
+        [wl,y0+ptf],[x0,y0+ptf]
+      ].map(p=>p.join(',')).join(' ');
+      svg.innerHTML = gridDefs()+`
+        <polygon points="${pts}" fill="none" stroke="#c2410c" stroke-width="1.5" stroke-linejoin="miter"/>
+        <text x="100" y="${y0+pH+20}" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="10" text-anchor="middle">b=${b}  H=${H}  tf=${tf}  tw=${tw}  (mm)</text>`;
+    }
+  }
+};
+
+function gridDefs() {
+  const lines = [];
+  for(let i=0;i<=5;i++){
+    lines.push(`<line x1="${i*40}" y1="0" x2="${i*40}" y2="200" stroke="#9ca3af" stroke-width="0.4"/>`);
+    lines.push(`<line x1="0" y1="${i*40}" x2="200" y2="${i*40}" stroke="#9ca3af" stroke-width="0.4"/>`);
+  }
+  return `<defs>
+    <marker id="da" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+  <g opacity="0.25">${lines.join('')}</g>`;
+}
+
+function v(id) { return parseFloat(document.getElementById(id).value); }
+
+function renderControls() {
+  const def = CS[curCS], cont = document.getElementById('cs-controls');
+  cont.innerHTML = '';
+  def.sliders.forEach(s => {
+    const row = document.createElement('div');
+    row.className = 'control';
+    row.innerHTML = `<label for="${s.id}">${s.label}</label>
+      <input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.val}" oninput="updateAll()">
+      <span class="readout" id="${s.id}-ro">${s.val} ${s.unit}</span>`;
+    cont.appendChild(row);
+  });
+  renderMathInElement(cont,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
+}
+
+function selectCS(type, btn) {
+  curCS = type;
+  document.querySelectorAll('.cs-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderControls();
+  updateAll();
+}
+
+function updateAll() {
+  const def = CS[curCS];
+  def.sliders.forEach(s => {
+    const el=document.getElementById(s.id), ro=document.getElementById(s.id+'-ro');
+    if(el&&ro) ro.textContent=el.value+' '+s.unit;
+  });
+  const F = v('F-slider');
+  document.getElementById('F-ro').textContent = F+' kN';
+  const A = def.area();
+  const sig = (F*1000)/A;
+  document.getElementById('area-out').textContent  = A.toFixed(1)+' mm²';
+  document.getElementById('sigma-out').textContent = sig.toFixed(2)+' MPa';
+  document.getElementById('cs-sub').textContent    = 'A = '+A.toFixed(1)+' mm²';
+  document.getElementById('formula-line').textContent = def.formula;
+  def.draw(document.getElementById('cs-svg'));
+  updateTension(sig, F);
+}
+
+function updateTension(sig, F) {
+  const t = Math.min(sig/300, 1);
+  const r=Math.round(255+t*(124-255)), g=Math.round(237+t*(45-237)), b=Math.round(213+t*(18-213));
+  document.getElementById('t-bar').setAttribute('fill',`rgb(${r},${g},${b})`);
+  const alen = 28+(F/500)*48;
+  const bL=132, bR=390, cy=86;
+  const la=document.getElementById('t-larr');
+  la.setAttribute('x1',bL); la.setAttribute('y1',cy);
+  la.setAttribute('x2',bL-alen); la.setAttribute('y2',cy);
+  const ra=document.getElementById('t-rarr');
+  ra.setAttribute('x1',bR); ra.setAttribute('y1',cy);
+  ra.setAttribute('x2',bR+alen); ra.setAttribute('y2',cy);
+  document.getElementById('t-lF').setAttribute('x', bL-alen-16);
+  document.getElementById('t-rF').setAttribute('x', bR+alen+2);
+  document.getElementById('t-sigma').textContent = `σ = ${sig.toFixed(2)} MPa  (tension)`;
+}
+
+// ── Practice ──────────────────────────────────────────────────
+function newProblem() {
+  const types = ['circle','rectangle','hollow'];
+  const type = types[Math.floor(Math.random()*types.length)];
+  const F = Math.round((10+Math.random()*190)*2)/2;
+  let dims={}, A=0, prompt='', diagSVG='';
+
+  if (type==='circle') {
+    const d = 20+2*Math.round(Math.random()*75);
+    A = Math.PI*d*d/4;
+    dims={d};
+    prompt=`A solid circular rod with diameter <strong>d = ${d} mm</strong> is under a tensile force <strong>F = ${F} kN</strong>.`;
+    diagSVG=makeDiag(type,dims,F);
+  } else if (type==='rectangle') {
+    const b=20+2*Math.round(Math.random()*55), h=20+2*Math.round(Math.random()*70);
+    A=b*h; dims={b,h};
+    prompt=`A rectangular bar, width <strong>b = ${b} mm</strong>, height <strong>h = ${h} mm</strong>, carries a tensile load <strong>F = ${F} kN</strong>.`;
+    diagSVG=makeDiag(type,dims,F);
+  } else {
+    const D=60+2*Math.round(Math.random()*50);
+    const d=Math.round(D*(0.4+Math.random()*0.35)/2)*2;
+    A=Math.PI*(D*D-d*d)/4; dims={D,d};
+    prompt=`A hollow circular tube, outer dia. <strong>D = ${D} mm</strong>, inner dia. <strong>d = ${d} mm</strong>, is under tensile force <strong>F = ${F} kN</strong>.`;
+    diagSVG=makeDiag(type,dims,F);
+  }
+
+  pracState={type,F,dims,A,sigma:(F*1000)/A};
+  document.getElementById('p-prompt').innerHTML = prompt+'<br><br><em>Find the axial stress σ in MPa.</em>';
+  document.getElementById('p-diag').innerHTML = diagSVG;
+  document.getElementById('p-fb').innerHTML = '';
+  document.getElementById('p-ans').value = '';
+  document.getElementById('p-input-row').style.display='flex';
+  document.getElementById('check-btn').style.display='';
+  document.getElementById('hint-btn').style.display='';
+}
+
+function makeDiag(type, dims, F) {
+  let shape='';
+  const cx=33, cy=33;
+  if (type==='circle') {
+    shape=`<circle cx="${cx}" cy="${cy}" r="22" fill="none" stroke="#c2410c" stroke-width="1.5"/>`;
+  } else if (type==='rectangle') {
+    const sc=Math.min(42/dims.b,42/dims.h);
+    const pw=dims.b*sc, ph=dims.h*sc;
+    shape=`<rect x="${cx-pw/2}" y="${cy-ph/2}" width="${pw}" height="${ph}" fill="none" stroke="#c2410c" stroke-width="1.5"/>`;
+  } else {
+    const sc=22/(dims.D/2);
+    const Ro=dims.D/2*sc, Ri=dims.d/2*sc;
+    shape=`<circle cx="${cx}" cy="${cy}" r="${Ro}" fill="none" stroke="#c2410c" stroke-width="1.5"/>
+           <circle cx="${cx}" cy="${cy}" r="${Ri}" fill="none" stroke="#c2410c" stroke-width="1.2" stroke-dasharray="4 2"/>`;
+  }
+  return `<svg viewBox="0 0 455 100" style="width:100%;height:auto;display:block">
+    <defs>
+      <marker id="p-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 Z" fill="#c2410c"/>
+      </marker>
+    </defs>
+    <rect x="90" y="32" width="220" height="36" rx="1" fill="#ffedd5" stroke="#c2410c" stroke-width="1"/>
+    <line x1="90"  y1="22" x2="90"  y2="78" stroke="#9ca3af" stroke-width="1.5"/>
+    <line x1="78" y1="22" x2="90" y2="32" stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="78" y1="35" x2="90" y2="45" stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="78" y1="48" x2="90" y2="58" stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="78" y1="61" x2="90" y2="71" stroke="#9ca3af" stroke-width="0.8"/>
+    <line x1="310" y1="22" x2="310" y2="78" stroke="#9ca3af" stroke-width="1.5"/>
+    <line x1="86"  y1="50" x2="36"  y2="50" stroke="#c2410c" stroke-width="2" marker-end="url(#p-arr)"/>
+    <line x1="314" y1="50" x2="364" y2="50" stroke="#c2410c" stroke-width="2" marker-end="url(#p-arr)"/>
+    <text x="22"  y="46" fill="#c2410c" font-family="Georgia,serif" font-style="italic" font-size="14">F</text>
+    <text x="368" y="46" fill="#c2410c" font-family="Georgia,serif" font-style="italic" font-size="14">F</text>
+    <text x="200" y="90" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="10" text-anchor="middle">F = ${F} kN</text>
+    <g transform="translate(380,8)">
+      <rect x="0" y="0" width="66" height="66" rx="3" fill="none" stroke="#e5e7eb" stroke-width="0.5"/>
+      <text x="33" y="-3" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="8" text-anchor="middle">cross section</text>
+      ${shape}
+    </g>
+  </svg>`;
+}
+
+function checkAns() {
+  if(!pracState) return;
+  const user=parseFloat(document.getElementById('p-ans').value);
+  const fb=document.getElementById('p-fb');
+  if(isNaN(user)){ fb.innerHTML=`<div class="callout callout-info"><span class="callout-label">Note</span> — enter a number in the field above.</div>`; return; }
+  const pct=Math.abs((user-pracState.sigma)/pracState.sigma)*100;
+  if(pct<=1) fb.innerHTML=`<div class="callout callout-success"><span class="callout-label">Correct!</span> σ = ${pracState.sigma.toFixed(2)} MPa. Well done.</div>`;
+  else if(pct<=8) fb.innerHTML=`<div class="callout callout-warning"><span class="callout-label">Close</span> — you got ${user.toFixed(2)} MPa; answer is ${pracState.sigma.toFixed(2)} MPa. Double-check your unit conversion (F must be in N, not kN).</div>`;
+  else fb.innerHTML=`<div class="callout callout-error"><span class="callout-label">Not quite</span> — you got ${user.toFixed(2)} MPa; answer is ${pracState.sigma.toFixed(2)} MPa. Use σ = F/A with F in N and A in mm².</div>`;
+}
+
+function showHint() {
+  if(!pracState) return;
+  const {type,F,dims,A}=pracState;
+  let aLine='';
+  if(type==='circle')         aLine=`π × ${dims.d}² / 4 = ${A.toFixed(1)} mm²`;
+  else if(type==='rectangle') aLine=`${dims.b} × ${dims.h} = ${A.toFixed(1)} mm²`;
+  else                        aLine=`π(${dims.D}² − ${dims.d}²)/4 = ${A.toFixed(1)} mm²`;
+  document.getElementById('p-fb').innerHTML=`<div class="callout callout-info"><span class="callout-label">Hint</span> — Step 1: A = ${aLine}. Step 2: F = ${F} kN = ${(F*1000).toFixed(0)} N. Step 3: σ = ${(F*1000).toFixed(0)} ÷ ${A.toFixed(1)} = ${((F*1000)/A).toFixed(2)} MPa.</div>`;
+}
+
+renderControls();
+updateAll();
+renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\(",right:"\\)",display:false}],throwOnError:false});
+</script>
+</body>
+</html>
