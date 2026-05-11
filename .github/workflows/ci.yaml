@@ -65,13 +65,11 @@ jobs:
           npx quartz build
         working-directory: ./source
 
-      - name: Copy raw HTML folder
+      - name: Copy widgets folder
         run: |
-          ls -la
-          cp -r raw_html/* public/ || true
+          cp -r widgets/ source/public/widgets/
           echo "Contents of public directory:"
-          ls -la public/
-        working-directory: ./source
+          ls -la source/public/
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
