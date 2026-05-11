@@ -6,7 +6,7 @@ Before we can discuss the idea for analog to digital conversion we must first di
 # Classical Methods 
 
 Before jumping into the digital side of systems let's take a look at what ye-oldie engineers used to use for recording data. This is best represented by the traditional, and occasionally still used, [[Strip Charts]]. 
-There is still one major problem with this classical system. What happens when your boss askes you to find the amplitude of a signal at 4:45PM on a Friday? You would do what any other engineer would do, grumble and pull out your handy pocket scale. You would measure the height of the signal form some baseline, record this number and multiply it by some known scale factor. In doing this process you have unknowingly committed the arduous task of discretization.
+There is still one major problem with this classical system. What happens when your boss asks you to find the amplitude of a signal at 4:45PM on a Friday? You would do what any other engineer would do, grumble and pull out your handy pocket scale. You would measure the height of the signal form some baseline, record this number and multiply it by some known scale factor. In doing this process you have unknowingly committed the arduous task of discretization.
 It's important to remember for later that the simple act of taking a measurement forces a infinite value into a finite value, and at the same time introduces an error. In the case of our scale this error is simple to calculate error is half of the smallest increment on our scale.
 
 ## The problem

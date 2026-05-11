@@ -48,5 +48,3 @@ A DC motor driving a mechanism experiences an added load torque $\tau_d(t)$ (bea
 - Load disturbance vs measurement noise in feedback loops — “Specifications and disturbance models” (Lund University notes).  
 - Disturbance rejection (control objective + block diagram framing) — Engineering LibreTexts section on disturbance rejection.  
 - Course note on citing AI-assisted writing — MCET520 welcome slide deck.
-
-<iframe src="https://www.desmos.com/calculator/icucnummnb?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>

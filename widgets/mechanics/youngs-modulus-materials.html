@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_blank">
+  <title>Young's Modulus — Material Comparison</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent:         #c2410c;
+      --accent-tint:    #ffedd5;
+      --accent-on-tint: #9a3412;
+      --bg:             #ffffff;
+      --text:           #1a1a1a;
+      --text-2:         #6b7280;
+      --text-3:         #9ca3af;
+      --border:         #e5e7eb;
+      --c-metal:        #c2410c;
+      --c-composite:    #1d4ed8;
+      --c-ceramic:      #6b7280;
+      --c-polymer:      #15803d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent:         #fb923c;
+        --accent-tint:    #7c2d12;
+        --accent-on-tint: #fed7aa;
+        --bg:             #1e1e2e;
+        --text:           #cdd6f4;
+        --text-2:         #a6adc8;
+        --text-3:         #6c7086;
+        --border:         #313244;
+        --c-metal:        #fb923c;
+        --c-composite:    #60a5fa;
+        --c-ceramic:      #9ca3af;
+        --c-polymer:      #4ade80;
+      }
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: transparent;
+      color: var(--text);
+      padding: 16px;
+    }
+    .widget {
+      padding: 1.5rem 1.75rem;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+    }
+    .display-title {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 0.3rem;
+    }
+    .byline {
+      font-size: 12px;
+      color: var(--text-2);
+      letter-spacing: 0.05em;
+      padding-bottom: 0.75rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .filter-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+    .filter-btn {
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      border: 0.5px solid var(--border);
+      background: transparent;
+      color: var(--text-2);
+      font-family: system-ui, sans-serif;
+    }
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--text-2);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-metal     { background: var(--c-metal); }
+    .dot-composite { background: var(--c-composite); }
+    .dot-ceramic   { background: var(--c-ceramic); }
+    .dot-polymer   { background: var(--c-polymer); }
+    #chart-svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .info-panel {
+      margin-top: 0.75rem;
+      padding: 10px 14px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-tint);
+      font-size: 13px;
+      line-height: 1.5;
+      display: none;
+    }
+    .info-panel.visible { display: block; }
+    .info-name { font-weight: 500; color: var(--accent-on-tint); margin-bottom: 2px; font-size: 14px; }
+    .info-val  { font-family: ui-monospace, monospace; font-size: 15px; color: var(--accent-on-tint); }
+    .info-note { margin-top: 4px; color: var(--text-2); font-size: 12px; }
+    .hint { font-size: 11px; color: var(--text-3); margin-top: 0.4rem; font-style: italic; }
+    @media (max-width: 480px) {
+      .widget { padding: 1rem 1.1rem; }
+      .display-title { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <h2 class="display-title" style="font-size:0;position:absolute;overflow:hidden">Young's modulus — material comparison chart on a logarithmic scale</h2>
+    <p class="display-title" aria-hidden="true">Young's modulus — material comparison</p>
+    <p class="byline">MECHANICS · stiffness reference · log scale · click a bar for details</p>
+
+    <div class="filter-row" id="filters">
+      <button class="filter-btn active" data-family="all">All</button>
+      <button class="filter-btn" data-family="metal">Metals</button>
+      <button class="filter-btn" data-family="composite">Composites</button>
+      <button class="filter-btn" data-family="ceramic">Ceramics</button>
+      <button class="filter-btn" data-family="polymer">Polymers</button>
+    </div>
+
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot dot-metal"></span>Metal</span>
+      <span class="legend-item"><span class="legend-dot dot-composite"></span>Composite</span>
+      <span class="legend-item"><span class="legend-dot dot-ceramic"></span>Ceramic</span>
+      <span class="legend-item"><span class="legend-dot dot-polymer"></span>Polymer</span>
+    </div>
+
+    <svg id="chart-svg" role="img" aria-label="Horizontal bar chart comparing Young's modulus for engineering materials on a logarithmic scale from 0.5 to 220 GPa"></svg>
+
+    <div class="info-panel" id="info-panel">
+      <div class="info-name" id="info-name"></div>
+      <div class="info-val"  id="info-val"></div>
+      <div class="info-note" id="info-note"></div>
+    </div>
+    <p class="hint">Click any bar to learn more. Use filters to focus on a material family.</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+  <script>
+    const materials = [
+      { name: 'Steel (carbon)',        E: 200,  family: 'metal',     note: 'The workhorse structural metal. Standard for machine frames, fasteners, and shafts. Highest stiffness-per-cost.' },
+      { name: 'Stainless steel 304',   E: 193,  family: 'metal',     note: 'Nearly as stiff as carbon steel with corrosion resistance. Common in food, medical, and marine environments.' },
+      { name: 'Titanium Ti-6Al-4V',    E: 114,  family: 'metal',     note: 'About half the stiffness of steel but also half the density — identical specific stiffness. Common in aerospace.' },
+      { name: 'Copper',                E: 110,  family: 'metal',     note: 'High electrical and thermal conductivity. Stiffness matters in flex circuits and precision contacts.' },
+      { name: 'CFRP (0° axial)',       E: 70,   family: 'composite', note: 'Carbon-fibre reinforced polymer with fibres aligned axially. Highly anisotropic — stiffness drops sharply off-axis.' },
+      { name: 'Aluminium 6061-T6',     E: 69,   family: 'metal',     note: 'Workhorse aerospace and structural alloy. About ⅓ the stiffness of steel but also ⅓ the density.' },
+      { name: 'Glass (borosilicate)',  E: 63,   family: 'ceramic',   note: 'Stiff and brittle. Used in optical lenses, lab equipment, and precision fixtures.' },
+      { name: 'Magnesium AZ31',        E: 45,   family: 'metal',     note: 'Lightest structural metal. Low stiffness and low density — useful in portable electronics housings.' },
+      { name: 'Concrete',              E: 30,   family: 'ceramic',   note: 'Effective modulus varies with mix and curing. Much lower apparent modulus in tension due to cracking.' },
+      { name: 'Nylon 6/6',            E: 2.7,  family: 'polymer',   note: 'Common engineering thermoplastic for gears, bushings, and cable guides. Absorbs moisture, which reduces E.' },
+      { name: 'ABS',                   E: 2.3,  family: 'polymer',   note: 'Standard 3D-printing plastic. Three orders of magnitude less stiff than steel.' },
+      { name: 'HDPE',                  E: 0.8,  family: 'polymer',   note: 'High-density polyethylene. Flexible at room temperature; used in low-load structural liners and containers.' },
+    ];
+
+    const FAMILY_COLORS_LIGHT = { metal: '#c2410c', composite: '#1d4ed8', ceramic: '#6b7280', polymer: '#15803d' };
+    const FAMILY_COLORS_DARK  = { metal: '#fb923c', composite: '#60a5fa', ceramic: '#9ca3af', polymer: '#4ade80' };
+    const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const FC = darkMode ? FAMILY_COLORS_DARK : FAMILY_COLORS_LIGHT;
+
+    const LOG_MIN   = Math.log10(0.5);
+    const LOG_MAX   = Math.log10(220);
+    const LOG_RANGE = LOG_MAX - LOG_MIN;
+
+    const SVG_W   = 540;
+    const LABEL_W = 158;
+    const RIGHT_M = 60;
+    const CHART_W = SVG_W - LABEL_W - RIGHT_M;
+    const BAR_H   = 19;
+    const BAR_GAP = 7;
+    const TOP_M   = 8;
+    const BOT_M   = 36;
+
+    let activeFamily = 'all';
+    let selectedMat  = null;
+
+    function xForE(E) {
+      return LABEL_W + (Math.log10(E) - LOG_MIN) / LOG_RANGE * CHART_W;
+    }
+
+    function esc(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function buildChart() {
+      const svg = document.getElementById('chart-svg');
+      const filtered = activeFamily === 'all'
+        ? materials
+        : materials.filter(m => m.family === activeFamily);
+
+      const numBars = filtered.length;
+      const chartH  = TOP_M + numBars * (BAR_H + BAR_GAP) - BAR_GAP + BOT_M;
+      svg.setAttribute('viewBox', `0 0 ${SVG_W} ${chartH}`);
+
+      const textMuted  = darkMode ? '#6c7086' : '#9ca3af';
+      const textLabel  = darkMode ? '#a6adc8' : '#6b7280';
+      const textVal    = darkMode ? '#cdd6f4' : '#1a1a1a';
+      const gridStroke = darkMode ? '#313244' : '#e5e7eb';
+      const axisStroke = darkMode ? '#a6adc8' : '#9ca3af';
+      const chartBot   = chartH - BOT_M;
+
+      let html = '';
+
+      // Grid lines + tick labels
+      const ticks = [1, 5, 10, 50, 100, 200];
+      for (const t of ticks) {
+        const x = xForE(t);
+        if (x < LABEL_W - 1 || x > LABEL_W + CHART_W + 1) continue;
+        html += `<line x1="${x.toFixed(1)}" y1="${TOP_M}" x2="${x.toFixed(1)}" y2="${chartBot}" stroke="${gridStroke}" stroke-width="0.75"/>`;
+        html += `<text x="${x.toFixed(1)}" y="${chartBot + 14}" text-anchor="middle" fill="${textMuted}" font-family="ui-monospace,monospace" font-size="10">${t}</text>`;
+      }
+
+      // Axes
+      html += `<line x1="${LABEL_W}" y1="${TOP_M}" x2="${LABEL_W}" y2="${chartBot}" stroke="${axisStroke}" stroke-width="0.75"/>`;
+      html += `<line x1="${LABEL_W}" y1="${chartBot}" x2="${LABEL_W + CHART_W}" y2="${chartBot}" stroke="${axisStroke}" stroke-width="0.75"/>`;
+
+      // Axis label
+      html += `<text x="${(LABEL_W + LABEL_W + CHART_W) / 2}" y="${chartH - 4}" text-anchor="middle" fill="${textMuted}" font-family="system-ui,sans-serif" font-size="10" letter-spacing="0.05em">E (GPa) — logarithmic scale</text>`;
+
+      // Bars
+      filtered.forEach((m, i) => {
+        const y     = TOP_M + i * (BAR_H + BAR_GAP);
+        const barW  = xForE(m.E) - LABEL_W;
+        const color = FC[m.family];
+        const isSelected = selectedMat === m;
+        const op    = selectedMat === null ? 1 : (isSelected ? 1 : 0.3);
+
+        // Row hit target
+        html += `<rect x="0" y="${y - 2}" width="${SVG_W}" height="${BAR_H + 4}" fill="transparent" style="cursor:pointer" data-midx="${materials.indexOf(m)}" class="bar-row"/>`;
+
+        // Name label
+        const shortName = m.name.length > 21 ? m.name.slice(0, 20) + '…' : m.name;
+        html += `<text x="${LABEL_W - 8}" y="${y + BAR_H / 2 + 4}" text-anchor="end" fill="${textLabel}" font-family="system-ui,sans-serif" font-size="11" opacity="${op}">${esc(shortName)}</text>`;
+
+        // Bar
+        html += `<rect x="${LABEL_W}" y="${y}" width="${Math.max(barW, 3).toFixed(1)}" height="${BAR_H}" fill="${color}" opacity="${op}" rx="2" style="cursor:pointer" data-midx="${materials.indexOf(m)}" class="bar-row"/>`;
+
+        // Value
+        const valStr = m.E >= 10 ? m.E + ' GPa' : m.E.toFixed(1) + ' GPa';
+        html += `<text x="${(xForE(m.E) + 6).toFixed(1)}" y="${y + BAR_H / 2 + 4}" fill="${textVal}" font-family="ui-monospace,monospace" font-size="11" opacity="${op}">${valStr}</text>`;
+      });
+
+      svg.innerHTML = html;
+
+      svg.querySelectorAll('.bar-row').forEach(el => {
+        el.addEventListener('click', function () {
+          const idx = parseInt(this.dataset.midx);
+          const m   = materials[idx];
+          if (selectedMat === m) {
+            selectedMat = null;
+            document.getElementById('info-panel').classList.remove('visible');
+          } else {
+            selectedMat = m;
+            document.getElementById('info-name').textContent = m.name;
+            document.getElementById('info-val').textContent  = `E = ${m.E} GPa`;
+            document.getElementById('info-note').textContent = m.note;
+            document.getElementById('info-panel').classList.add('visible');
+          }
+          buildChart();
+        });
+      });
+    }
+
+    document.getElementById('filters').addEventListener('click', function (e) {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFamily = btn.dataset.family;
+      selectedMat  = null;
+      document.getElementById('info-panel').classList.remove('visible');
+      buildChart();
+    });
+
+    buildChart();
+  </script>
+</body>
+</html>

@@ -6,7 +6,7 @@ The **search bar** in the upper left allows you to perform a full-text search 
 
 In the upper right of this page, you can see an **interactive graph view** that shows the current article and its connections to others. The articles are vertices or nodes in the network, and there is an edge between two vertices if one article links to the other. You can use the graph of you to jump onto any connected article by simply clicking on its vertex (node). Vertices in the graph that are greyed out indicate articles that have not yet been written.
 
-This vault was created as a resource for students in MCET 520 at the [Rochester Institute of Technology](http://RIT.edu/). It is free to use by anyone. The articles in the vault are designed to parallel, but not duplicate, content in the course's LMS system [MyCourses](https://mycourses.rit.edu)
+This vault was created as a resource for students in Mechatronics courses at the [Rochester Institute of Technology](http://RIT.edu/). It is free to use by anyone. The articles in the vault are designed to parallel, but not duplicate, content in the course's LMS system [MyCourses](https://mycourses.rit.edu)
 
 The articles in this vault are also available in the public GitHub repository: Link TBD 
 
