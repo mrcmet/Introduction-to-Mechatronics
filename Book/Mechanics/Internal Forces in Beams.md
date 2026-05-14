@@ -28,8 +28,12 @@ Shear changed sign at the load; moment is still sagging.
 - **Counter-example — support reactions are not internal forces.** The reaction forces at a pin or roller are *external* forces that appear on the [[Free Body Diagram]] of the whole beam. Internal forces only appear when you *cut* the beam and expose the cross-section — they are invisible until then.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=M9n5RKFhGJM)
-- **[Engineering Toolbox — Beams and Loads](https://www.engineeringtoolbox.com/beam-stress-deflection-d_1312.html)** — reference tables for common beam cases.
+
+![](https://youtu.be/wzFPnf6Yzdg?si=fRk-QYrjteuiupgp)
+
+ ![](https://youtu.be/DC-6c7whuUk?si=OuWU2m3xxFMmEXW7)
+ 
+ ![](https://youtu.be/C-FEVzI8oe8?si=wAxoTxKwduDxDyaQ_)
 
 ## Practice
 - A cantilever beam of length $L = 3\ \text{m}$ is fixed at the left end and carries a downward point load $P = 15\ \text{kN}$ at the free (right) end. Find the shear force and bending moment at $x = 1\ \text{m}$ from the fixed end.

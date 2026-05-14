@@ -42,7 +42,7 @@ Notes:
 
 ## Resources
 - ![](https://www.youtube.com/watch?v=aQf6Q8t1FQE)
-- **[Engineering Toolbox — Strain](https://www.engineeringtoolbox.com/strain-d_948.html)** — formula reference with worked unit conversions.
+- **[Engineering Toolbox — Strain](https://www.engineeringtoolbox.com/stress-strain-d_950.html)** — formula reference with worked unit conversions.
 
 ## Practice
 - A copper rod ($E = 110\ \text{GPa}$, $L_0 = 300\ \text{mm}$) is subjected to a compressive [[axial stress]] of $55\ \text{MPa}$. How much does the rod shorten? Express your answer in mm and in microstrain.

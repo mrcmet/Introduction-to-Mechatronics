@@ -4,24 +4,53 @@
     "type": "split",
     "children": [
       {
-        "id": "d4cf1b201123c6ca",
+        "id": "e9889344612149c7",
         "type": "tabs",
         "children": [
           {
-            "id": "0b7fd4b352585aca",
+            "id": "cc1ecda8e1b12ca9",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Book/Mechanics/Hooke's Law.md",
+                "file": "Book/Mechanics/Support Reactions.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Support Reactions"
+            }
+          },
+          {
+            "id": "8bc9cb4a731293dd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Book/Mechanics/Beam End Conditions.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Hooke's Law"
+              "title": "Beam End Conditions"
+            }
+          },
+          {
+            "id": "023d4068c20ab526",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Book/Mechanics/Normal Stress.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Normal Stress"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -78,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 438.5
   },
   "right": {
     "id": "d05bfbf43c662528",
@@ -140,13 +169,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Book/Mechanics/Hooke's Law.md",
+                "file": "Book/Mechanics/Normal Stress.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Hooke's Law"
+              "title": "Outline of Normal Stress"
             }
           }
         ],
@@ -168,54 +197,57 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "callout-manager:Insert Callout": false,
-      "publish:Publish changes...": false
+      "publish:Publish changes...": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "0b7fd4b352585aca",
+  "active": "023d4068c20ab526",
   "lastOpenFiles": [
-    "Book/Mechanics/Beam End Conditions.md",
-    "Book/Mechanics/Axial Deformation.md",
-    "Book/Mechanics/Axial Stress.md",
-    "Book/Mechanics/Ultimate Tensile Strength.md",
-    "Book/Mechanics/Support Reactions.md",
-    "Book/Mechanics/Stress-Strain Curve.md",
-    "Book/Mechanics/Saint-Venant's Principle.md",
     "Book/Mechanics/Point Load and Distributed Load.md",
-    "Book/Mechanics/Hooke's Law.md",
-    "Book/Mechanics/Free Body Diagram.md",
-    "Book/Mechanics/Internal Forces in Beams.md",
-    "Book/Mechanics/Normal Stress.md",
-    "Book/Mechanics/_Mechanics Sequence Tracker.md",
-    "Book/Mechanics/Poisson's Ratio.md",
-    "Book/Mechanics/Shear Stress.md",
-    "Book/Mechanics/Yield Strength.md",
     "Book/Mechanics/Strain.md",
-    "Book/Mechanics/Factor of Safety.md",
+    "Book/Mechanics/Stress-Strain Curve.md",
+    "Book/Mechanics/Ultimate Tensile Strength.md",
+    "Book/Mechanics/Torsional Shear Stress.md",
+    "Book/Mechanics/Support Reactions.md",
+    "Book/Mechanics/Bending Moment Diagram.md",
+    "Book/Mechanics/_Mechanics Sequence Tracker.md",
+    "Book/Mechanics/Beam End Conditions.md",
+    "Book/Mechanics/Singularity Functions.md",
+    "Excalidraw/Drawing 2026-05-13 19.08.34.excalidraw.md",
+    "Excalidraw/Drawing 2026-05-13 19.12.34.excalidraw.md",
+    "Excalidraw/Point Vs Distributed loads.svg",
+    "Book/Mechanics/Stress Tensor.md",
+    "Book/Mechanics/Shear Stress.md",
+    "Book/Mechanics/Transverse Shear Stress in Beams.md",
+    "Book/Mechanics/Yield Strength.md",
     "Book/Mechanics/Young's Modulus.md",
+    "Excalidraw/Supports and reactions.svg",
+    "Excalidraw/Supports and reactions.md",
+    "Excalidraw/Drawing 2026-05-13 18.42.15.excalidraw.md",
+    "Excalidraw/Drawing 2026-05-13 18.25.13.excalidraw.md",
+    "Resources/Drawing 2026-05-12 15.40.48.excalidraw 1 1 1.svg",
+    "Resources/Pasted image 20251228122646.png",
+    "Resources/Pasted image 20260513134013.png",
+    "Excalidraw/Drawing 2026-05-13 18.24.36.excalidraw.md",
+    "Excalidraw/Shear Tensor Notation.md",
+    "Excalidraw/Shear Tensor.md",
+    "Excalidraw/Point Vs Distributed loads.md",
+    "Excalidraw/Drawing 2026-05-13 15.51.36.excalidraw.md",
+    "Equation.md",
+    "Drawing 2026-05-12 15.40.48.excalidraw 1 1.svg",
+    "Excalidraw/Drawing 2026-05-12 15.40.48.excalidraw 1.svg",
+    "Excalidraw/Drawing 2026-05-12 15.40.48.excalidraw.svg",
+    "Excalidraw/Drawing 2026-05-12 15.40.48.excalidraw 1.png",
+    "Excalidraw/Drawing 2026-05-12 11.14.30.excalidraw.png",
+    "Excalidraw/Scripts/Downloaded",
+    "Excalidraw/Scripts",
+    "Excalidraw",
+    "widgets/mechanics/shear_stress_explorer.html",
     "widgets/mechanics/axial-stress-explorer.html",
     "widgets/mechanics/stress-strain-curve.html",
     "widgets/mechanics/youngs-modulus-materials.html",
     "widgets/mechanics",
-    "Saint-Venant's principle.md",
-    "Book/Measurement fundamentals/Error, noise, and calibration/Calibration.md",
-    "Book/Measurement fundamentals/Discretization and ADC/Discretization.md",
-    "Book/Measurement fundamentals/Discretization and ADC/Analog Conversion.md",
-    "Book/Systems/Plant.md",
     "Book/Mechanics",
-    "Page.md",
-    "Archive/Process.md",
-    "Archive",
-    "publish.css",
-    "source/content",
-    "source",
-    "Untitled.base",
-    "Pasted image 20251228122646.sync-conflict-20251228-092804-ZSA6EGO.png",
-    "Resources/Pasted image 20251228122646.png",
-    "Pasted image 20251228122543.sync-conflict-20251228-092654-ZSA6EGO.png",
-    "Pasted image 20251228122543.png",
-    "Pasted image 20251228120119.sync-conflict-20251228-091634-ZSA6EGO.png",
-    "Pasted image 20251228115138.sync-conflict-20251228-090730-ZSA6EGO.png",
-    "Pasted image 20251228120119.png",
-    "Pasted image 20251228115138.png"
+    "Archive"
   ]
 }

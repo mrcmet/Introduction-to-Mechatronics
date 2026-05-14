@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_blank">
+  <title>Shear Stress Explorer</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --accent:         #c2410c;
+      --accent-tint:    #ffedd5;
+      --accent-on-tint: #9a3412;
+      --toggle-off:     #d1d5db;
+      --bg:             #f5f5f5;
+      --text:           #1a1a1a;
+      --text-2:         #6b7280;
+      --text-3:         #9ca3af;
+      --border:         #e5e7eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent:         #fb923c;
+        --accent-tint:    #7c2d12;
+        --accent-on-tint: #fed7aa;
+        --toggle-off:     #4a4a4a;
+        --bg:             #1a1a1a;
+        --text:           #e0e0e0;
+        --text-2:         #9e9e9e;
+        --text-3:         #6b6b6b;
+        --border:         #2e2e2e;
+      }
+    }
+
+    /* ── Base ───────────────────────────────────────────────── */
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: transparent;
+      color: var(--text);
+      padding: 16px;
+    }
+    .widget {
+      padding: 1.5rem 1.75rem;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+    }
+
+    /* ── Typography ─────────────────────────────────────────── */
+    .display-title {
+      font-family: 'Source Serif 4', 'Crimson Pro', Georgia, serif;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .byline {
+      font-size: 12px;
+      color: var(--text-2);
+      letter-spacing: 0.05em;
+      padding-bottom: 0.75rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .body { font-size: 15px; line-height: 1.65; margin-bottom: 0.8rem; }
+    .marginalia {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-2);
+      border-left: 2px solid var(--accent);
+      padding-left: 12px;
+      margin-top: 1rem;
+    }
+
+    /* ── Equations ──────────────────────────────────────────── */
+    .eq-display { text-align: center; margin: 0.9rem 0; overflow-x: auto; }
+
+    /* ── Answer block ───────────────────────────────────────── */
+    .answer-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      text-align: center;
+      margin-top: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+    .answer-block {
+      border-top: 1px solid var(--accent);
+      border-bottom: 1px solid var(--accent);
+      padding: 12px 0;
+      text-align: center;
+      font-family: ui-monospace, monospace;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    /* ── Slider ─────────────────────────────────────────────── */
+    .control { display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem; }
+    .control label { font-size: 13px; color: var(--text-2); width: 90px; flex-shrink: 0; }
+    .control input[type=range] { flex: 1; accent-color: var(--accent); }
+    .control .readout {
+      font-family: ui-monospace, monospace;
+      font-size: 14px;
+      font-weight: 500;
+      min-width: 88px;
+      text-align: right;
+    }
+
+    /* ── Figure row ─────────────────────────────────────────── */
+    .fig-row { display: flex; gap: 12px; margin: 1rem 0; }
+    .fig-box {
+      flex: 1;
+      min-width: 0;
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 8px 4px;
+    }
+    .fig-caption {
+      font-size: 10px;
+      color: var(--text-3);
+      text-align: center;
+      margin-top: 4px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .section-divider {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 1rem 0;
+    }
+
+    /* ── SVG element color classes ──────────────────────────── */
+    /* light-mode defaults */
+    .sv-wall       { fill: #e5e7eb; }
+    .sv-wall-edge  { stroke: #6b7280; fill: none; }
+    .sv-hatch      { stroke: #c0c8d0; fill: none; }
+    .sv-plate-lo   { fill: #e5e7eb; stroke: #9ca3af; }
+    .sv-plate-up   { fill: #bfdbfe; stroke: #6b7280; }
+    .sv-elem-bg    { fill: #fff7ed; stroke: #374151; }
+    .sv-accent-stroke { stroke: #c2410c; fill: none; }
+    .sv-accent-text   { fill: #c2410c; }
+    .sv-dim-stroke    { stroke: #9ca3af; fill: none; }
+    .sv-dim-text      { fill: #9ca3af; }
+    .sv-val-text      { fill: #374151; }
+
+    @media (prefers-color-scheme: dark) {
+      .sv-wall       { fill: #374151; }
+      .sv-wall-edge  { stroke: #9ca3af; }
+      .sv-hatch      { stroke: #4b5563; }
+      .sv-plate-lo   { fill: #1f2937; stroke: #4b5563; }
+      .sv-plate-up   { fill: #1e3a8a; stroke: #3b82f6; }
+      .sv-elem-bg    { fill: #431407; stroke: #9ca3af; }
+      .sv-accent-stroke { stroke: #fb923c; }
+      .sv-accent-text   { fill: #fb923c; }
+      .sv-dim-stroke    { stroke: #4b5563; }
+      .sv-dim-text      { fill: #4b5563; }
+      .sv-val-text      { fill: #e0e0e0; }
+    }
+
+    /* ── Narrow viewport ────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .widget { padding: 1rem 1.1rem; }
+      .display-title { font-size: 20px; }
+      .body { font-size: 14px; }
+      .control { flex-wrap: wrap; gap: 4px; }
+      .control label { width: 100%; }
+      .fig-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="widget">
+
+  <p class="display-title">Shear Stress Explorer</p>
+  <p class="byline">Mechanics of Materials · direct shear</p>
+
+  <p class="body">
+    Shear stress \(\tau\) develops when a force acts <em>parallel</em> to a
+    cross-sectional area, causing adjacent planes of material to slide relative
+    to one another. With \(F\) in N and \(A\) in mm², the result is in
+    MPa&thinsp;(= N/mm²).
+  </p>
+
+  <!-- ── Sliders ──────────────────────────────────────────── -->
+  <div class="control">
+    <label for="F-sl">Force \(F\)</label>
+    <input type="range" id="F-sl" min="100" max="10000" step="100" value="3000">
+    <span class="readout" id="F-rd">3000 N</span>
+  </div>
+  <div class="control">
+    <label for="A-sl">Area \(A\)</label>
+    <input type="range" id="A-sl" min="100" max="2000" step="10" value="800">
+    <span class="readout" id="A-rd">800 mm²</span>
+  </div>
+
+  <!-- ── Figures ──────────────────────────────────────────── -->
+  <div class="fig-row">
+
+    <!-- LEFT: Direct shear setup (lap-joint style) -->
+    <div class="fig-box">
+      <svg viewBox="0 0 230 168" style="width:100%;height:auto;display:block"
+           aria-label="Direct shear setup diagram — lap joint with force F">
+        <defs>
+          <!-- F arrow: uses context-stroke so dark-mode works via CSS class -->
+          <marker id="arr-F" viewBox="0 0 10 10" refX="9" refY="5"
+                  markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="context-stroke"/>
+          </marker>
+          <!-- τ arrow on shear plane -->
+          <marker id="arr-tau-sh" viewBox="0 0 10 10" refX="9" refY="5"
+                  markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="context-stroke"/>
+          </marker>
+        </defs>
+
+        <!-- Wall background -->
+        <rect x="0" y="22" width="30" height="138" rx="1" class="sv-wall"/>
+        <!-- Wall hatch lines -->
+        <line x1="3" y1="34"  x2="27" y2="34"  stroke-width="1" class="sv-hatch"/>
+        <line x1="3" y1="48"  x2="27" y2="48"  stroke-width="1" class="sv-hatch"/>
+        <line x1="3" y1="62"  x2="27" y2="62"  stroke-width="1" class="sv-hatch"/>
+        <line x1="3" y1="76"  x2="27" y2="76"  stroke-width="1" class="sv-hatch"/>
+        <line x1="3" y1="90"  x2="27" y2="90"  stroke-width="1" class="sv-hatch"/>
+        <line x1="3" y1="104" x2="27" y2="104" stroke-width="1" class="sv-hatch"/>
+        <line x1="3" y1="118" x2="27" y2="118" stroke-width="1" class="sv-hatch"/>
+        <line x1="3" y1="132" x2="27" y2="132" stroke-width="1" class="sv-hatch"/>
+        <line x1="3" y1="146" x2="27" y2="146" stroke-width="1" class="sv-hatch"/>
+        <!-- Wall face edge -->
+        <line x1="30" y1="22" x2="30" y2="160" stroke-width="2" class="sv-wall-edge"/>
+
+        <!-- Lower plate (fixed to wall) -->
+        <rect x="30" y="95" width="178" height="56" rx="2" class="sv-plate-lo"/>
+
+        <!-- Upper plate (moves right under F) -->
+        <rect x="30" y="47" width="115" height="48" rx="2" class="sv-plate-up"/>
+
+        <!-- Shear plane: dashed accent line at the interface -->
+        <line x1="30" y1="95" x2="145" y2="95"
+              stroke-width="2.2" stroke-dasharray="5 3" class="sv-accent-stroke"/>
+
+        <!-- Small τ arrow along the shear plane -->
+        <line x1="52" y1="95" x2="86" y2="95"
+              stroke-width="1.8" class="sv-accent-stroke"
+              marker-end="url(#arr-tau-sh)"/>
+        <text x="47" y="91"
+              font-family="Georgia,serif" font-style="italic" font-size="11"
+              class="sv-accent-text">τ</text>
+
+        <!-- F arrow — x2 updated dynamically by JS -->
+        <line id="F-line" x1="145" y1="71" x2="197" y2="71"
+              stroke-width="2.8" class="sv-accent-stroke"
+              marker-end="url(#arr-F)"/>
+        <text id="F-lbl" x="201" y="76"
+              font-family="Georgia,serif" font-style="italic" font-size="15"
+              class="sv-accent-text">F</text>
+
+        <!-- Dimension bracket: shear area A (width of upper plate) -->
+        <line x1="30"  y1="155" x2="145" y2="155" stroke-width="0.8" class="sv-dim-stroke"/>
+        <line x1="30"  y1="150" x2="30"  y2="160" stroke-width="0.8" class="sv-dim-stroke"/>
+        <line x1="145" y1="150" x2="145" y2="160" stroke-width="0.8" class="sv-dim-stroke"/>
+        <text x="87" y="167"
+              font-family="Georgia,serif" font-style="italic" font-size="11"
+              text-anchor="middle" class="sv-dim-text">A</text>
+      </svg>
+      <p class="fig-caption">Applied load</p>
+    </div>
+
+    <!-- RIGHT: 2-D shear stress element -->
+    <div class="fig-box">
+      <svg viewBox="0 0 196 168" style="width:100%;height:auto;display:block"
+           aria-label="2D shear stress element showing tau on all four faces">
+        <defs>
+          <marker id="arr-t" viewBox="0 0 10 10" refX="9" refY="5"
+                  markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="context-stroke"/>
+          </marker>
+        </defs>
+
+        <!-- Element square: (54,38) → (54+88,38+88) = (54,38) → (142,126) -->
+        <!-- Center: (98, 82)  -->
+        <rect x="54" y="38" width="88" height="88" rx="1"
+              stroke-width="1.5" class="sv-elem-bg"/>
+
+        <!-- τ on top face → right (τ_yx, positive shear sign convention) -->
+        <line x1="70"  y1="38" x2="120" y2="38"
+              stroke-width="2" class="sv-accent-stroke" marker-end="url(#arr-t)"/>
+        <!-- τ on bottom face → left -->
+        <line x1="126" y1="126" x2="76" y2="126"
+              stroke-width="2" class="sv-accent-stroke" marker-end="url(#arr-t)"/>
+        <!-- τ on right face → up (↑, toward smaller y in SVG) -->
+        <line x1="142" y1="110" x2="142" y2="58"
+              stroke-width="2" class="sv-accent-stroke" marker-end="url(#arr-t)"/>
+        <!-- τ on left face → down (↓) -->
+        <line x1="54" y1="54" x2="54" y2="106"
+              stroke-width="2" class="sv-accent-stroke" marker-end="url(#arr-t)"/>
+
+        <!-- τ labels beside each arrow -->
+        <text x="98" y="28"
+              font-family="Georgia,serif" font-style="italic" font-size="12"
+              text-anchor="middle" class="sv-accent-text">τ</text>
+        <text x="98" y="144"
+              font-family="Georgia,serif" font-style="italic" font-size="12"
+              text-anchor="middle" class="sv-accent-text">τ</text>
+        <text x="156" y="86"
+              font-family="Georgia,serif" font-style="italic" font-size="12"
+              text-anchor="start" class="sv-accent-text">τ</text>
+        <text x="40" y="86"
+              font-family="Georgia,serif" font-style="italic" font-size="12"
+              text-anchor="end" class="sv-accent-text">τ</text>
+
+        <!-- Live τ value in centre of element (plain text, JS updates) -->
+        <text id="el-tau" x="98" y="82"
+              font-family="ui-monospace,monospace" font-size="11" font-weight="700"
+              text-anchor="middle" dominant-baseline="central"
+              class="sv-val-text">3.75 MPa</text>
+      </svg>
+      <p class="fig-caption">Stress element</p>
+    </div>
+
+  </div><!-- /.fig-row -->
+
+  <!-- ── Static equation (KaTeX, rendered once at load) ─────── -->
+  <div class="eq-display">
+    $$\tau = \frac{F}{A}$$
+  </div>
+
+  <hr class="section-divider">
+
+  <p class="answer-label">SHEAR STRESS &thinsp;\(\tau\)</p>
+  <div class="answer-block" id="tau-out">3.75 MPa</div>
+
+  <p class="marginalia">
+    Doubling \(A\) at constant \(F\) halves \(\tau\) — the same force is now
+    distributed over twice the area.
+  </p>
+
+</div><!-- /.widget -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+  /* ── KaTeX: render once on load ─────────────────────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$',   right: '$$',   display: true  },
+        { left: '\\(',  right: '\\)',  display: false }
+      ],
+      throwOnError: false
+    });
+    update();
+  });
+
+  /* ── Slider listeners ───────────────────────────────────── */
+  const Fsl = document.getElementById('F-sl');
+  const Asl = document.getElementById('A-sl');
+  Fsl.addEventListener('input', update);
+  Asl.addEventListener('input', update);
+
+  /* ── Update (runs immediately on every input event) ─────── */
+  function update() {
+    const F = +Fsl.value;
+    const A = +Asl.value;
+
+    /* Readouts */
+    document.getElementById('F-rd').textContent = F.toLocaleString() + ' N';
+    document.getElementById('A-rd').textContent = A.toLocaleString() + ' mm²';
+
+    /* Computed shear stress: τ = F/A  [N/mm² = MPa] */
+    const tau    = F / A;
+    const tauStr = tau.toFixed(2) + ' MPa';
+
+    /* Answer block and stress-element centre label */
+    document.getElementById('tau-out').textContent = tauStr;
+    document.getElementById('el-tau').textContent  = tauStr;
+
+    /* Scale F-arrow length linearly: 32 px (F=100) → 76 px (F=10 000) */
+    const arrowLen = 32 + (F - 100) / 9900 * 44;
+    const x1 = 145;
+    const x2 = x1 + arrowLen;
+    document.getElementById('F-line').setAttribute('x2', x2.toFixed(1));
+    document.getElementById('F-lbl').setAttribute('x',  (x2 + 4).toFixed(1));
+  }
+</script>
+</body>
+</html>

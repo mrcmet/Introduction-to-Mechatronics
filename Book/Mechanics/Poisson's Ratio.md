@@ -1,7 +1,9 @@
 ---
-tags: [mechanics]
+tags:
+  - mechanics
+  - "#materials"
 ---
-#mechanics
+#mechanics #materials 
 
 ## Definition
 > [!definition]
@@ -40,8 +42,8 @@ The diameter decreases by $\Delta d = \varepsilon_{lateral} \times d = -0.0003 \
 - **Counter-example — thermal expansion is not a Poisson effect.** When a rod is heated uniformly, it expands in all directions equally. That is isotropic thermal expansion, governed by the coefficient of thermal expansion — not Poisson's ratio, which only applies when there is a *mechanical* load causing differential axial vs. lateral strain.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=tuOBNMHTeEk)
-- **[Engineering Toolbox — Poisson's Ratio](https://www.engineeringtoolbox.com/poissons-ratio-d_1212.html)** — tabulated values for common materials.
+- ![](https://youtu.be/tuOlM3P7ygA?si=RHLsTPgu3CgBJYZf)
+- **[Matweb - Material Search](https://www.matweb.com/search/PropertySearch.aspx)** — Use MATWEBs search feature to find values for common materials.
 
 ## Practice
 - An aluminum bar ($\nu = 0.33$, square cross-section $30\ \text{mm} \times 30\ \text{mm}$) is loaded in tension with $\varepsilon_{axial} = +0.0015$. What is the new side length of the cross-section?

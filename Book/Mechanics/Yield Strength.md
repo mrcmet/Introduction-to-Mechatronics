@@ -29,7 +29,7 @@ Notes:
 ## Resources
 - ![](https://www.youtube.com/watch?v=67fSwIjYJ-E)
 - <iframe src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/stress-strain-curve.html" width="100%" height="560" style="border: none; border-radius: 8px;" loading="lazy" title="Interactive stress–strain curve — elastic and plastic regions, yield point"></iframe>
-- **[Engineering Toolbox — Yield Strength](https://www.engineeringtoolbox.com/yield-strength-d_950.html)** — material tables with typical $\sigma_y$ values for common metals.
+- **[MATWEB — Yield Strength 1018 CRS](https://www.matweb.com/search/DataSheet.aspx?MatGUID=3a9cc570fbb24d119f08db22a53e2421&ckck=1)** — material table for 1018CRS showing Ys. Other common metals available.
 
 ## Practice
 - An Al 6061-T6 rod ($\sigma_y = 276\ \text{MPa}$, $d = 15\ \text{mm}$) is loaded in tension. What is the maximum force it can carry before yielding?

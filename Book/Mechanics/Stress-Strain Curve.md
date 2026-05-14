@@ -28,9 +28,9 @@ Notes:
 - **Counter-example — a spring force–displacement curve is not a stress–strain curve.** A load vs. deflection plot for a coil spring looks similar — linear then nonlinear — but its axes are force (N) and displacement (mm), which depend on geometry. A stress–strain curve normalizes both axes by area and length, making it a *material* property rather than a *component* property.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=67fSwIjYJ-E)
-- <iframe src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/stress-strain-curve.html" width="100%" height="560" style="border: none; border-radius: 8px;" loading="lazy" title="Interactive stress–strain curve — elastic and plastic regions, yield point"></iframe>
-- **[Engineering Toolbox — Stress–Strain Diagram](https://www.engineeringtoolbox.com/stress-strain-d_950.html)** — annotated diagram with region labels.
+- ![](https://youtu.be/AkX6JqlWRqc?si=pyS7D6UAU5aJQgli)
+- <iframe src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/stress-strain-curve.html" width="100%" height="605" style="border: none; border-radius: 8px;" loading="lazy" title="Interactive stress–strain curve — elastic and plastic regions, yield point"></iframe>
+
 
 ## Practice
 - On a stress–strain curve for Al 6061-T6, the linear region ends at approximately $\sigma = 276\ \text{MPa}$ and $\varepsilon = 0.004\ \text{m/m}$. What is $E$? Does this match the accepted value of $69\ \text{GPa}$?

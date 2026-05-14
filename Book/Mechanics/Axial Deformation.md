@@ -5,7 +5,7 @@ tags: [mechanics]
 
 ## Definition
 > [!definition]
-> **Axial deformation** ($\delta$) is the change in length of a prismatic member under an axial load, given by $\delta = \frac{FL_0}{AE}$, where $F$ is the [[internal force]], $L_0$ is the original length, $A$ is the [[cross-sectional area]], and $E$ is [[Young's modulus]]. A positive $\delta$ is elongation; negative is shortening.
+> **Axial deformation** ($\delta$) is the change in length of a prismatic member under an axial load, given by $\delta = \frac{FL_0}{AE}$, where $F$ is the [[Internal Forces in Beams|internal force]], $L_0$ is the original length, $A$ is the cross-sectional area, and $E$ is [[Young's modulus]]. A positive $\delta$ is elongation; negative is shortening.
 
 Notes:
 - This formula combines $\sigma = F/A$, $\varepsilon = \delta/L_0$, and $\sigma = E\varepsilon$ into a single expression. It assumes the member is **prismatic** (constant $A$ and $E$ along its length) and the load is purely axial.
@@ -46,8 +46,8 @@ $$\delta_{total} = 0.150 + 0.193 = 0.343\ \text{mm}$$
 - **Counter-example — thermal expansion is not axial deformation.** A steel rod heated by $\Delta T = 50\ \text{°C}$ will also elongate, but the mechanism is thermal expansion ($\delta_T = \alpha \Delta T L_0$), not an applied force. The formula $\delta = FL_0/AE$ does not apply. If the rod is constrained, the thermal expansion produces a compressive [[axial stress]] — but that is a separate calculation.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=3OEFCnHT2HE)
-- **[Engineering Toolbox — Stress and Deformation](https://www.engineeringtoolbox.com/stress-d_950.html)** — reference values for common geometries.
+- ![](https://youtu.be/kixuJsONtGU?si=U1xwHHjjNJxjJ1E_)
+- **[Viscoelasticity — Stress and deformation]([https://www.engineeringtoolbox.com/stress-d_950.html](https://www.viscoelasticity.info/6-stress-and-deformation/))** .
 
 ## Practice
 - A 900 mm aluminum rod ($E = 69\ \text{GPa}$) must not elongate more than $0.50\ \text{mm}$ under a tensile load of $F = 30\ \text{kN}$. What is the minimum required diameter?

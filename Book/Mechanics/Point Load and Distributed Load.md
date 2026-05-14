@@ -38,8 +38,10 @@ Notes:
 - **Counter-example — using the resultant on a shear diagram.** A student replaces a UDL of $w = 4\ \text{kN/m}$ over a 3 m span with a single 12 kN point load at mid-span before drawing the shear diagram. The resulting diagram shows a step at mid-span rather than the correct linearly varying shear. The resultant shortcut is for reactions only; keep the distributed load in place for diagram construction.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=qJTN7yTSViI)
-- **[Engineering Toolbox — Beams and Distributed Loads](https://www.engineeringtoolbox.com/beam-stress-deflection-d_1312.html)** — worked cases for UDL and triangular loads.
+
+![[Point Vs Distributed loads.svg]]
+
+![](https://youtu.be/MvBqCeZllpQ?si=ONsm2MIskjxo9RoZ)
 
 ## Practice
 - A 5 m simply supported beam carries a UDL of $w = 6\ \text{kN/m}$ over the left 3 m only. Find the resultant of the distributed load and its location, then compute the support reactions.

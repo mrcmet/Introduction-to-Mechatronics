@@ -26,7 +26,7 @@ Notes:
 
 ## Resources
 - ![](https://www.youtube.com/watch?v=67fSwIjYJ-E)
-- **[Engineering Toolbox — Tensile Strength](https://www.engineeringtoolbox.com/tensile-strength-d_945.html)** — material tables with $\sigma_y$ and $\sigma_u$ side by side.
+- **[MATWEB — Ultimate Tensile Strength 1018 CRS](https://www.matweb.com/search/DataSheet.aspx?MatGUID=3a9cc570fbb24d119f08db22a53e2421&ckck=1)** — material table for 1018CRS showing UTS. Other common metals available.
 
 ## Practice
 - A 304 stainless steel rod has $\sigma_y = 215\ \text{MPa}$ and $\sigma_u = 505\ \text{MPa}$. A designer applies a safety factor of 2 against yielding. What is the allowable stress? How does it compare to $\sigma_u$?

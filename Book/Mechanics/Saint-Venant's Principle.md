@@ -22,5 +22,5 @@ Notes:
 - **Counter-example — a hole violates Saint-Venant.** Near a circular hole in a plate under tension, the stress rises sharply at the hole edges (a [[Stress Concentrations]] effect). Moving one hole-diameter away does *not* restore uniformity — the geometry itself causes a persistent perturbation that cannot be dismissed using this principle.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=fM-FBEiGgLs)
-- **[Encyclopaedia Britannica — Saint-Venant's Principle](https://www.britannica.com/science/Saint-Venants-principle)** — historical context and formal statement.
+- ![](https://youtu.be/WSVBrxh7GHI?si=_KyyAPsyz986PWsr&t=163)
+

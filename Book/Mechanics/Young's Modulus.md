@@ -41,9 +41,11 @@ No load cell needed — strain gauge data plus a known $E$ gives stress directly
 - **Counter-example — geometry is not stiffness.** A rubber pad ($E \approx 0.01\ \text{GPa}$) cut very thick can resist more total force than a thin steel sheet before reaching the same stress. Young's modulus is a material constant; how much a part deflects under load also depends on its length and cross-section. For the full deformation calculation, see [[axial deformation]].
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=DLE-ieOVFjI)
-- <iframe src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/youngs-modulus-materials.html" width="100%" height="680" style="border: none; border-radius: 8px;" loading="lazy" title="Young's modulus material comparison — interactive bar chart"></iframe>
-- **[Engineering Toolbox — Young's Modulus](https://www.engineeringtoolbox.com/young-modulus-d_417.html)** — extended material table with temperature dependence notes.
+
+![](https://www.youtube.com/watch?v=DLE-ieOVFjI)
+<iframe src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/youngs-modulus-materials.html" width="100%" height="680" style="border: none; border-radius: 8px;" loading="lazy" title="Young's modulus material comparison — interactive bar chart"></iframe>
+
+**[Engineering Toolbox — Young's Modulus](https://www.engineeringtoolbox.com/young-modulus-d_417.html)** — extended material table with temperature dependence notes.
 
 ## Practice
 - A tensile test on an unknown alloy records $\sigma = 330\ \text{MPa}$ at $\varepsilon = 2{,}870\ \mu\varepsilon$ while still in the elastic region. What is $E$? Use the material chart above to identify the most likely material family.

@@ -7,7 +7,7 @@ tags:
 
 ## Definition
 > [!definition]
-> **Axial stress** ($\sigma$) is the [[internal force]] per unit [[cross-sectional area]] that acts along the longitudinal axis of a structural member: $\sigma = F / A$. When the force pulls the member apart the stress is **tensile** ($\sigma > 0$); when it squeezes the member together it is **compressive** ($\sigma < 0$).
+> **Axial stress** ($\sigma$) is the [[Internal Forces in Beams|internal force]] per unit cross-sectional area that acts along the longitudinal axis of a structural member: $\sigma = F / A$. When the force pulls the member apart the stress is **tensile** ($\sigma > 0$); when it squeezes the member together it is **compressive** ($\sigma < 0$).
 
 Axial stress is a special case of [[normal stress]] — "normal" meaning perpendicular to the face it acts on. Contrast with [[shear stress]], which acts *parallel* to the face.
 Axial stress and [[strain]] are related through [[Young's modulus]]: $\sigma = E \varepsilon$. This is the one-dimensional form of [[Hooke's law]] for solids.

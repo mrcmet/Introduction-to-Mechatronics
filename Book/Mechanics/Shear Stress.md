@@ -5,44 +5,52 @@ tags: [mechanics]
 
 ## Definition
 > [!definition]
-> **Shear stress** ($\tau$) is the [[internal force]] per unit [[cross-sectional area]] that acts *parallel* to the face it acts on: $\tau = V / A$. It is the complement of [[Normal Stress]], which acts perpendicular to the same face.
+> **Shear stress** ($\tau$) is the component of stress that acts *parallel* to the face it acts on, as opposed to [[Normal Stress]], which acts perpendicular to the same face. On the [[Stress Tensor]], shear stresses occupy the six off-diagonal positions and are what cause a body to deform by sliding rather than by stretching or compressing.
 
 Notes:
-- Units are pascals (Pa) or megapascals (MPa), identical to [[Axial Stress]].
-- The formula $\tau = V/A$ gives the *average* shear stress across the section and assumes stress is uniformly distributed — a useful first approximation for bolts, pins, and rivets. The distribution is rarely uniform in practice; see [[Transverse Shear Stress in Beams]] for the parabolic profile in beam cross-sections.
-- Shear stress drives shear *strain* ($\gamma$), related through the [[Shear Modulus]]: $\tau = G \gamma$. This is the shear analogue of [[Hooke's Law]].
-- Shear stress appears in three important contexts: direct shear (pins, bolts), transverse shear in beams ([[Transverse Shear Stress in Beams]]), and torsion ([[Torsional Shear Stress]]). Each has its own formula, but the same unit and physical meaning.
+- Units are pascals (Pa) or megapascals (MPa) — identical to normal stress.
+- Shear stress is indicated as the plane the stress is acting on, and the direction in which it's acting. This is commonly denoted in the subscript.
++ ![[Drawing 2026-05-12 15.40.48.excalidraw.svg]]
+- In the 3D stress tensor, each face of an infinitesimal element carries one normal stress and two shear components. Rotational equilibrium requires that complementary shear stresses are equal ($\tau_{xy} = \tau_{yx}$, etc.), reducing nine entries to six independent values:
 
-## Equations
+$$\boldsymbol{\sigma} = \begin{bmatrix} \sigma_x & \tau_{xy} & \tau_{xz} \\ \tau_{yx} & \sigma_y & \tau_{yz} \\ \tau_{zx} & \tau_{zy} & \sigma_z \end{bmatrix}$$
++ The diagonal is [[Normal Stress]]. Everything off the diagonal is shear.
++ This leads us to the fact that we have only 3 "Shear stresses"
+	+ Shear stress on the X plane in the Y direction: $\tau_{xy}$ 
+	+ Shear stress on the Y plane in the Z direction: $\tau_{yz}$ 
+	+ Shear stress on the Z plane in the X direction: $\tau_{zx}$ 
++ In principal we can draw all 6 potential shear stresses on one stress tensor. However as stated above Rotational equilibrium requires that complementary shear stresses are equal ($\tau_{xy} = \tau_{yx}$, etc.) reducing this to 3 Shear stresses : $\tau_{xy}$ , $\tau_{zx}$ , $\tau_{yz}$
++ ![[Drawing 2026-05-12 15.40.48.excalidraw 1.svg]]
++ In the case that forces conspire to create multiple shear stresses in the same plane and direction then these stresses can be added directly.
+- Shear stress drives shear *strain* ($\gamma$), related through the [[Shear Modulus]] $G$ by $\tau = G\gamma$ — the shear analogue of [[Hooke's Law]].
+- Three distinct load types produce shear stress in structural members, each with its own formula and distribution across the cross-section:
 
-> [!equation] Average Shear Stress
-> $$\tau = \frac{V}{A}$$
->
-> - $\tau$ — average shear stress (Pa or MPa)
-> - $V$ — shear force acting on the section (N)
-> - $A$ — cross-sectional area resisting the shear (m²)
-> - *Assumes uniform distribution — valid for pins, bolts, and rivets; see [[Transverse Shear Stress in Beams]] for non-uniform cases*
+| Type | What causes it | Formula | Distribution across section |
+|---|---|---|---|
+| [[Direct Shear Stress]] | Transverse force on a pin, bolt, or rivet | $\tau = V/A$ | Assumed uniform |
+| [[Transverse Shear Stress in Beams]] | Internal shear force $V$ along a beam | $\tau = VQ/It$ | Parabolic — max at centroid, zero at outer edges |
+| [[Torsional Shear Stress]] | Twisting moment $T$ on a shaft | $\tau = Tr/J$ | Linear — zero at center, max at outer surface |
+
+- Under [[Combined Loading]], all three types can be present simultaneously in the same cross-section. Where they share the same direction, their values add directly.
 
 ## Examples and Non-Examples
 
-- **Single-shear bolt.** A steel bolt with diameter $d = 12\ \text{mm}$ connects two plates and carries a shear load $V = 9\ \text{kN}$.
-$$A = \frac{\pi (0.012)^2}{4} \approx 1.13 \times 10^{-4}\ \text{m}^2$$
-$$\tau_{avg} = \frac{V}{A} = \frac{9{,}000}{1.13 \times 10^{-4}} \approx 79.6\ \text{MPa}$$
+- **Pin in single shear.** A clevis pin loaded transversely develops stress parallel to its cut face. One cross-section resists the entire load: $\tau = V/A$. This is the simplest shear case — see [[Direct Shear Stress]] for worked numbers.
 
-- **Double-shear pin.** If the same 9 kN load is carried by a double-shear clevis pin (load shared across two cross-sections), the shear stress halves:
-$$\tau_{avg} = \frac{V}{2A} = \frac{9{,}000}{2 \times 1.13 \times 10^{-4}} \approx 39.8\ \text{MPa}$$
+- **Beam under a point load.** The internal shear force produces a *parabolic* shear stress profile across the cross-section. Maximum shear occurs at the neutral axis, not at the top or bottom fiber — the exact opposite of [[Bending Stress]].
 
-- **Counter-example — axial stress is not shear stress.** A rod pulled along its axis develops stress *perpendicular* to its cross-section (normal stress). No face is being slid; that is [[Axial Stress]], not shear stress, even though both use the same $F/A$ form.
+- **Rotating driveshaft.** An applied torque $T$ creates shear stress that is zero at the shaft center and reaches a maximum at the outer radius: $\tau_{max} = Tr/J$. Same unit ($\tau$), completely different formula and geometry — see [[Torsional Shear Stress]].
+
+- **Counter-example — axial load is not shear.** A rod pulled along its length develops [[Axial Stress]], which acts *perpendicular* to the cut face. Even though the formula looks the same ($\sigma = F/A$), the direction is normal, not parallel. The stress tensor for a purely axial member has only diagonal entries; all six shear components are zero.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=nBfqCVhUZbs)
-- **[Engineering Toolbox — Shear Stress](https://www.engineeringtoolbox.com/shear-stress-d_649.html)** — quick reference and unit conversions.
 
+![](https://youtu.be/tjhFKH8fL7s?si=hudKfeYMfvlZslL_)
+
+![](https://youtu.be/aQf6Q8t1FQE?si=ekIaWoXwrB5l9rTH)
 ## Practice
-- A 16 mm diameter aluminum pin supports a double-shear load of $F = 24\ \text{kN}$. What is the average shear stress in the pin?
+- A stress tensor has $\sigma_x = 80\ \text{MPa}$, $\tau_{xy} = 30\ \text{MPa}$, and all other components zero. (a) How many independent nonzero values does this tensor have? (b) What is $\tau_{yx}$?
 
 > [!NOTE]- Answer
-> **Find the area of one shear plane.**
-> $$A = \frac{\pi (0.016)^2}{4} \approx 2.01 \times 10^{-4}\ \text{m}^2$$
-> **Divide load across two shear planes.**
-> $$\tau = \frac{F}{2A} = \frac{24{,}000}{2 \times 2.01 \times 10^{-4}} \approx 59.7\ \text{MPa}$$
+> (a) Two independent nonzero values: $\sigma_x = 80\ \text{MPa}$ and $\tau_{xy} = 30\ \text{MPa}$.
+> (b) By the complementary shear stress condition, $\tau_{yx} = \tau_{xy} = 30\ \text{MPa}$.

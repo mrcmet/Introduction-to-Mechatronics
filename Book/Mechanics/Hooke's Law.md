@@ -41,8 +41,8 @@ This is below the proportional limit for structural steel (~250 MPa), so Hooke's
 - **Counter-example — rubber.** A silicone rubber gasket under compression is elastic (it recovers when unloaded), but its stress–strain relationship is highly nonlinear even at small strains. Being elastic is not the same as obeying Hooke's law. Hooke's law requires *linear* elasticity.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=ZaAYOuHfA8I)
-- <iframe src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/stress-strain-curve.html" width="100%" height="560" style="border: none; border-radius: 8px;" loading="lazy" title="Interactive stress–strain curve — Hooke's law regions for Al 6061-T6"></iframe>
+- ![](https://youtu.be/G7pDrGU0Q_Q?si=k0N6Eudy1XnPHvq_)
+- <iframe src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/stress-strain-curve.html" width="100%" height="610" style="border: none; border-radius: 8px;" loading="lazy" title="Interactive stress–strain curve — Hooke's law regions for Al 6061-T6"></iframe>
 
 ## Practice
 - A structural steel member ($E = 200\ \text{GPa}$, proportional limit = $250\ \text{MPa}$) is measured at $\varepsilon = 900\ \mu\varepsilon$. Is Hooke's law valid? What is the axial stress?

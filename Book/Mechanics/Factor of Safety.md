@@ -44,7 +44,7 @@ Notes:
 - **Counter-example — a high factor of safety does not mean safe against all failure modes.** A shaft designed with $n = 4$ against static yielding can still fail in fatigue if subjected to cyclic loading, because fatigue failure occurs at stresses well below $\sigma_y$. Factor of safety must be matched to the correct failure mode.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=WIJdXMHnMvg)
+- ![](https://youtu.be/YqdHLp0Rf7s?si=Gz8JA--_a_O9NZCV)
 - **[Engineering Toolbox — Factor of Safety](https://www.engineeringtoolbox.com/factors-safety-fos-d_1624.html)** — typical $n$ values by application and industry.
 
 ## Practice
