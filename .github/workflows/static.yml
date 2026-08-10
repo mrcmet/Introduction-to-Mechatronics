@@ -1,31 +1,27 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy widgets to GitHub Pages
+
+# Publishes ONLY the widgets/ folder. The Obsidian vault markdown is never
+# built, so LaTeX / [[wikilinks]] can't break the deploy. The prose site is
+# served separately by Obsidian Publish.
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
     paths:
       - "widgets/**"
-      - ".github/workflows/static.yaml"
-      
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+      - ".github/workflows/ci.yaml"
+  workflow_dispatch:        # lets you trigger a deploy manually from the Actions tab
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -34,13 +30,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
+
+      - name: Stage widgets as the site (preserve the /widgets/ URL prefix)
+        run: |
+          mkdir -p _site/widgets
+          cp -r widgets/. _site/widgets/
+          # The gallery file is named widgets-index.html; expose it at /widgets/
+          if [ -f _site/widgets/widgets-index.html ]; then
+            cp _site/widgets/widgets-index.html _site/widgets/index.html
+          fi
+          touch _site/.nojekyll
+          echo "Published tree:" && find _site -maxdepth 2 -type f | sort
+
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@v4
