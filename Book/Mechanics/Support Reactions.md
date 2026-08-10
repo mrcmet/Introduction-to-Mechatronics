@@ -5,7 +5,7 @@ tags: [mechanics]
 
 ## Definition
 > [!definition]
-> **Support reactions** are the forces and moments that supports exert on a beam to maintain static equilibrium under applied loads. They are found by drawing a [[Free Body Diagram]] of the entire beam and applying the three equilibrium equations: $\sum F_{x} = 0$, $\sum F_{y} = 0$, $\sum F_{z} = 0$ and $\sum M_{x} = 0$, $\sum M_{y} = 0$, $\sum M_{z} = 0$.
+> **Support reactions** are the forces and moments that supports exert on a beam to maintain [[Static Equilibrium|static equilibrium]] under applied loads. They are found by drawing a [[Free Body Diagram]] of the entire beam and applying the three equilibrium equations: $\sum F_{x} = 0$, $\sum F_{y} = 0$, $\sum F_{z} = 0$ and $\sum M_{x} = 0$, $\sum M_{y} = 0$, $\sum M_{z} = 0$.
 
 Notes:
 - The number and type of reactions depend on the [[Beam End Conditions]]: a roller gives one force, a pin gives two forces, a fixed support gives two forces and a moment.

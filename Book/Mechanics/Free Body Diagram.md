@@ -5,7 +5,7 @@ tags: [mechanics]
 
 ## Definition
 > [!definition]
-> A **free body diagram** (FBD) is an isolated sketch of a body or segment that shows every external force and moment acting on it, with all physical supports replaced by their equivalent reaction forces. It is the starting point for applying equilibrium to find unknown forces and [[Support Reactions]].
+> A **free body diagram** (FBD) is an isolated sketch of a body or segment that shows every external force and moment acting on it, with all physical supports replaced by their equivalent reaction forces. It is the starting point for applying [[Static Equilibrium|equilibrium]] to find unknown forces and [[Support Reactions]].
 
 Notes:
 - The word "free" means the body is mentally cut loose from its surroundings. Every physical connection — supports, cables, contacts — is removed and replaced by a force arrow representing what that connection *does* to the body.
@@ -17,7 +17,7 @@ Notes:
 		  + Weight of the structure.
 		  + Support reactions ([[Beam End Conditions]]).
 	  4. Label magnitudes, directions, and points of application.
-	  5. Set up equilibrium equations ($\sum F = 0$, $\sum M = 0$) to solve for unknowns.
+	  5. Set up the [[Static Equilibrium|equilibrium equations]] ($\sum F = 0$, $\sum M = 0$) to solve for unknowns.
 - Include only *external* forces on the FBD. Internal forces between parts of the body cancel in pairs and do not appear — they only become visible when you cut the body and draw a new FBD of the cut segment (this is how [[Internal Forces in Beams]] are found).
 - Sign convention matters: choose positive directions before writing equilibrium equations and stick to them.
 

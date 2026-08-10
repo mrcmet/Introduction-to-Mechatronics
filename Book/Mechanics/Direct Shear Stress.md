@@ -43,7 +43,7 @@ $$\tau_{avg} = \frac{V}{2A} = \frac{9{,}000}{2 \times 1.13 \times 10^{-4}} \appr
 <iframe
   src="https://mrcmet.github.io/Introduction-to-Mechatronics/widgets/mechanics/shear_stress_explorer.html"
   width="100%"
-  height="560"
+  height="800"
   style="border: none; border-radius: 8px;"
   loading="lazy"
   title="Shear Stress Explorer — single and double shear calculator with diagrams">

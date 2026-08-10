@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_blank">
+  <title>Grübler–Kutzbach Mobility</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent:         #c2410c;
+      --accent-tint:    #ffedd5;
+      --accent-on-tint: #9a3412;
+      --toggle-off:     #d1d5db;
+      --bg:             #f5f5f5;
+      --text:           #1a1a1a;
+      --text-2:         #6b7280;
+      --text-3:         #9ca3af;
+      --border:         #e5e7eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent:         #fb923c;
+        --accent-tint:    #7c2d12;
+        --accent-on-tint: #fed7aa;
+        --toggle-off:     #4a4a4a;
+        --bg:             #1a1a1a;
+        --text:           #e0e0e0;
+        --text-2:         #9e9e9e;
+        --text-3:         #6b6b6b;
+        --border:         #2e2e2e;
+      }
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: transparent;
+      color: var(--text);
+      padding: 16px;
+    }
+    .widget {
+      padding: 1.5rem 1.75rem;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+    }
+
+    .display-title {
+      font-family: 'Source Serif 4', 'Crimson Pro', Georgia, serif;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .byline {
+      font-size: 12px;
+      color: var(--text-2);
+      letter-spacing: 0.05em;
+      padding-bottom: 0.75rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .body { font-size: 15px; line-height: 1.65; margin-bottom: 0.8rem; }
+    .marginalia {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-2);
+      border-left: 2px solid var(--accent);
+      border-radius: 0;
+      padding-left: 12px;
+      margin: 1rem 0;
+    }
+
+    .eq-display { text-align: center; margin: 0.9rem 0; overflow-x: auto; }
+
+    .answer-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      text-align: center;
+      margin-top: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+    .answer-block {
+      border-top: 1px solid var(--accent);
+      border-bottom: 1px solid var(--accent);
+      padding: 12px 0;
+      text-align: center;
+      font-family: ui-monospace, monospace;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .callout { padding: 8px 12px; border-left: 3px solid; border-radius: 0; font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
+    .callout-label { font-weight: 500; }
+    .callout-success { background: #dcfce7; color: #14532d; border-left-color: #15803d; }
+    .callout-warning { background: #fef9c3; color: #713f12; border-left-color: #ca8a04; }
+    .callout-error   { background: #fee2e2; color: #7f1d1d; border-left-color: #b91c1c; }
+    .callout-info    { background: #dbeafe; color: #1e3a8a; border-left-color: #1d4ed8; }
+    @media (prefers-color-scheme: dark) {
+      .callout-success { background: #14532d; color: #bbf7d0; border-left-color: #4ade80; }
+      .callout-warning { background: #713f12; color: #fef08a; border-left-color: #facc15; }
+      .callout-error   { background: #7f1d1d; color: #fecaca; border-left-color: #f87171; }
+      .callout-info    { background: #1e3a8a; color: #bfdbfe; border-left-color: #60a5fa; }
+    }
+
+    .control { display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem; }
+    .control label { font-size: 13px; color: var(--text-2); width: 150px; flex-shrink: 0; }
+    .control input[type=range] { flex: 1; accent-color: var(--accent); }
+    .control .readout { font-family: ui-monospace, monospace; font-size: 14px; font-weight: 500; min-width: 40px; text-align: right; }
+
+    .btn-row { display: flex; gap: 8px; justify-content: flex-start; margin-top: 1.25rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 0.45rem 1.1rem; border-radius: 6px; font-size: 13px; font-family: system-ui, sans-serif; cursor: pointer; font-weight: 500; line-height: 1; }
+    .btn-secondary { background: transparent; color: var(--accent); border: 0.5px solid var(--accent); font-weight: 400; }
+    .btn-secondary:hover { background: var(--accent-tint); }
+    .btn-secondary:active { opacity: 0.8; }
+
+    .preset-label { font-size: 11px; letter-spacing: 0.08em; color: var(--text-3); margin-top: 1.25rem; margin-bottom: 0.1rem; text-transform: uppercase; }
+
+    @media (max-width: 480px) {
+      .widget { padding: 1rem 1.1rem; }
+      .display-title { font-size: 20px; }
+      .body { font-size: 14px; }
+      .control { flex-wrap: wrap; gap: 4px; }
+      .control label { width: 100%; }
+      .btn-row { justify-content: stretch; }
+      .btn { flex: 1; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <p class="display-title">Grübler–Kutzbach Mobility</p>
+    <p class="byline">DYNAMICS · PLANAR LINKAGE ANALYSIS</p>
+
+    <p class="body">Set the link and joint counts for a planar mechanism and read its mobility \(M\) — the number of independent inputs it needs. Count <em>every</em> link, ground included.</p>
+
+    <div class="eq-display">$$M = 3(n-1) - 2j_1 - j_2$$</div>
+
+    <div class="control">
+      <label for="n-in">Links \(n\) (incl. ground)</label>
+      <input type="range" id="n-in" min="1" max="8" step="1" value="4" />
+      <span class="readout" id="n-out">4</span>
+    </div>
+    <div class="control">
+      <label for="j1-in">Full joints \(j_1\)</label>
+      <input type="range" id="j1-in" min="0" max="10" step="1" value="4" />
+      <span class="readout" id="j1-out">4</span>
+    </div>
+    <div class="control">
+      <label for="j2-in">Half joints \(j_2\)</label>
+      <input type="range" id="j2-in" min="0" max="6" step="1" value="0" />
+      <span class="readout" id="j2-out">0</span>
+    </div>
+
+    <p class="answer-label">MOBILITY</p>
+    <div class="answer-block" id="m-out">M = 1</div>
+
+    <div id="interp"></div>
+
+    <p class="preset-label">Try a known mechanism</p>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="setPreset(4,4,0)">Four-bar</button>
+      <button class="btn btn-secondary" onclick="setPreset(3,3,0)">Rigid triangle</button>
+      <button class="btn btn-secondary" onclick="setPreset(5,5,1)">Bottle capper</button>
+      <button class="btn btn-secondary" onclick="setPreset(6,7,1)">Capper + brace</button>
+      <button class="btn btn-secondary" onclick="setPreset(5,5,0)">Five-bar</button>
+    </div>
+
+    <p class="marginalia">More links do not mean more motion — every joint removes freedom as fast as a link adds it. A four-bar and a rigid triangle differ by one link but one moves and one cannot.</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+  <script>
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$",  right: "$$",  display: true  },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+
+    const nEl  = document.getElementById('n-in');
+    const j1El = document.getElementById('j1-in');
+    const j2El = document.getElementById('j2-in');
+    const nOut = document.getElementById('n-out');
+    const j1Out = document.getElementById('j1-out');
+    const j2Out = document.getElementById('j2-out');
+    const mOut = document.getElementById('m-out');
+    const interp = document.getElementById('interp');
+
+    function interpretation(M) {
+      if (M === 1)  return ['success', 'M = 1', 'One independent input (one motor) fully drives the mechanism — the usual design target.'];
+      if (M === 0)  return ['warning', 'M = 0', 'A structure, not a mechanism: zero mobility, it cannot move. Correct for a bracket, wrong for a machine meant to move.'];
+      if (M < 0)    return ['error',   'M < 0', 'Over-constrained (statically indeterminate): more constraints than freedoms. It will generally bind unless the geometry is exact.'];
+      return         ['info',    'M > 1', 'Needs ' + M + ' independent inputs (' + M + ' motors) to control fully.'];
+    }
+
+    function update() {
+      const n  = parseInt(nEl.value, 10);
+      const j1 = parseInt(j1El.value, 10);
+      const j2 = parseInt(j2El.value, 10);
+      nOut.textContent = n;
+      j1Out.textContent = j1;
+      j2Out.textContent = j2;
+      const M = 3 * (n - 1) - 2 * j1 - j2;
+      mOut.textContent = 'M = ' + M;
+      const [kind, label, text] = interpretation(M);
+      interp.innerHTML =
+        '<div class="callout callout-' + kind + '">' +
+        '<span class="callout-label">' + label + '</span> — ' + text + '</div>';
+    }
+
+    function setPreset(n, j1, j2) {
+      nEl.value = n; j1El.value = j1; j2El.value = j2;
+      update();
+    }
+
+    [nEl, j1El, j2El].forEach(el => el.addEventListener('input', update));
+    update();
+  </script>
+</body>
+</html>

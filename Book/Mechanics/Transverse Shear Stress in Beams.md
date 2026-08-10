@@ -8,27 +8,28 @@ tags: [mechanics]
 > **Transverse shear stress** is the [[Shear Stress]] produced in a beam by an internal shear force $V$. Unlike [[Direct Shear Stress]], which is assumed uniform, transverse shear stress varies continuously across the cross-section — for a rectangular beam it follows a parabolic profile, peaking at the [[Neutral Axis]] and dropping to zero at the top and bottom edges.
 
 Notes:
-- The shear stress at any point in the cross-section is given by the **shear formula**:
-
-$$\tau = \frac{VQ}{It}$$
-
-where:
-- $V$ = internal shear force at the section (from the [[Shear Force Diagram]])
-- $Q$ = first moment of area of the partial section above (or below) the point of interest, about the [[Neutral Axis]]: $Q = A'\bar{y}'$
-- $I$ = [[Second Moment of Area]] of the entire cross-section about the neutral axis
-- $t$ = width of the cross-section at the point where $\tau$ is evaluated
-
 - **How to compute $Q$:** Cut the cross-section at height $y$ from the neutral axis. Take the area $A'$ on one side of the cut, find the distance $\bar{y}'$ from the neutral axis to its centroid. Then $Q = A'\bar{y}'$. $Q$ is maximum at the neutral axis ($y = 0$) and zero at the outer edges, which drives the parabolic profile.
-
-- For a **rectangular cross-section** (width $b$, total height $h$), the maximum shear stress at the neutral axis simplifies to:
-$$\tau_{max} = \frac{3V}{2A}$$
-This is 1.5× the average $V/A$ that direct shear assumes — a meaningful error if you apply the wrong formula.
-
 - The parabolic distribution means the outer fibers of a beam carry *no* transverse shear stress. This is the opposite of [[Bending Stress]], which is maximum at the outer fibers and zero at the neutral axis. Under combined loading, both exist simultaneously at every cross-section but peak at different locations.
-
 - The shear formula assumes the shear stress is uniform across the width $t$ at any given height $y$ — a good approximation for narrow cross-sections but less accurate for wide flanges.
-
 - Transverse shear is one of three shear stress types — see [[Shear Stress]] for the family overview and formula comparison.
+
+## Equations
+
+> [!equation] Shear Formula
+> $$\tau = \frac{VQ}{It}$$
+>
+> - $\tau$ — transverse shear stress at the point of interest (Pa)
+> - $V$ — internal shear force at the section (N); from the [[Shear Force Diagram]]
+> - $Q$ — first moment of area of the partial section above (or below) the point: $Q = A'\bar{y}'$ (m³)
+> - $I$ — [[Second Moment of Area]] of the entire cross-section about the [[Neutral Axis]] (m⁴)
+> - $t$ — width of the cross-section at the height where $\tau$ is evaluated (m)
+
+> [!equation] Maximum Shear Stress — Rectangular Section
+> $$\tau_{max} = \frac{3V}{2A}$$
+>
+> - Applies at the neutral axis of a solid rectangular cross-section only
+> - $A = bh$ — full cross-sectional area (m²)
+> - This is 1.5× the average $V/A$ that [[Direct Shear Stress]] assumes — a meaningful error if you apply the wrong formula
 
 ## Examples and Non-Examples
 
@@ -48,7 +49,8 @@ Lower than the neutral-axis maximum, as the parabolic profile predicts.
 - **Counter-example — uniform shear is not transverse shear.** Applying the direct shear formula $\tau = V/A$ to this beam gives $\tau = 2.0\ \text{MPa}$ — 33% below the true maximum of 3.0 MPa. This underestimates the peak stress and leads to unconservative designs. The uniform assumption is only valid for pins and bolts ([[Direct Shear Stress]]), not for beams.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=MFxBFGEFJsY)
+- ![](https://youtu.be/4x0E9yvzfCM?si=r4emmwzABv_mmFjQ)
+- **[MechRef — Transverse Shear Stress](https://www.mechref.org/sol/transverse_shear/?origin=sidebar)** — worked derivation and interactive cross-section examples.
 
 ## Practice
 - A rectangular timber beam ($b = 75\ \text{mm}$, $h = 150\ \text{mm}$) supports an internal shear force of $V = 18\ \text{kN}$. (a) What is the maximum transverse shear stress and where does it occur? (b) What is the shear stress at $y = 50\ \text{mm}$ above the neutral axis?

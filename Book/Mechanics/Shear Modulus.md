@@ -9,12 +9,7 @@ tags: [mechanics]
 
 Notes:
 - Units are pascals (Pa) or gigapascals (GPa), identical to [[Young's Modulus]].
-- $G$ is not independent of $E$ and $\nu$. For any isotropic material:
-
-$$G = \frac{E}{2(1 + \nu)}$$
-
-where $E$ is [[Young's Modulus]] and $\nu$ is [[Poisson's Ratio]]. Only two of the three elastic constants are independent — knowing any two determines the third.
-
+- $G$ is not independent of $E$ and $\nu$ — for any isotropic material, knowing any two of the three elastic constants determines the third.
 - Typical values for common engineering materials:
 
 | Material | $G$ (GPa) |
@@ -26,6 +21,22 @@ where $E$ is [[Young's Modulus]] and $\nu$ is [[Poisson's Ratio]]. Only two of t
 
 - Shear modulus appears in the torsion formula for angle of twist: $\phi = TL/(GJ)$. A shaft with a low $G$ will twist more for the same applied [[Torque]].
 - Like [[Young's Modulus]], $G$ is only valid within the elastic range of the [[Stress-Strain Curve]]. Beyond yield, the linear relationship between $\tau$ and $\gamma$ no longer holds.
+
+## Equations
+
+> [!equation] Shear Stress–Strain Relationship
+> $$\tau = G \gamma$$
+>
+> - $\tau$ — shear stress (Pa)
+> - $G$ — shear modulus (Pa or GPa)
+> - $\gamma$ — shear strain (rad, dimensionless)
+
+> [!equation] Shear Modulus from Elastic Constants
+> $$G = \frac{E}{2(1 + \nu)}$$
+>
+> - $E$ — [[Young's Modulus]] (Pa)
+> - $\nu$ — [[Poisson's Ratio]] (dimensionless)
+> - Only two of $E$, $G$, $\nu$ are independent — knowing any two gives the third
 
 ## Examples and Non-Examples
 

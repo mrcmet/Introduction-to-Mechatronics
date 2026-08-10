@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_blank">
+  <title>Four-Bar Linkage Explorer</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent:         #c2410c;
+      --accent-tint:    #ffedd5;
+      --accent-on-tint: #9a3412;
+      --toggle-off:     #d1d5db;
+      --bg:             #f5f5f5;
+      --text:           #1a1a1a;
+      --text-2:         #6b7280;
+      --text-3:         #9ca3af;
+      --border:         #e5e7eb;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --accent:         #fb923c;
+        --accent-tint:    #7c2d12;
+        --accent-on-tint: #fed7aa;
+        --toggle-off:     #4a4a4a;
+        --bg:             #1a1a1a;
+        --text:           #e0e0e0;
+        --text-2:         #9e9e9e;
+        --text-3:         #6b6b6b;
+        --border:         #2e2e2e;
+      }
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: transparent;
+      color: var(--text);
+      padding: 16px;
+    }
+    .widget {
+      padding: 1.5rem 1.75rem;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+    }
+
+    .display-title {
+      font-family: 'Source Serif 4', 'Crimson Pro', Georgia, serif;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .byline {
+      font-size: 12px;
+      color: var(--text-2);
+      letter-spacing: 0.05em;
+      padding-bottom: 0.75rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .body { font-size: 15px; line-height: 1.65; margin-bottom: 0.8rem; }
+    .marginalia {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-2);
+      border-left: 2px solid var(--accent);
+      border-radius: 0;
+      padding-left: 12px;
+      margin: 1rem 0;
+    }
+
+    .eq-display { text-align: center; margin: 0.9rem 0; overflow-x: auto; }
+
+    .readouts { display: flex; gap: 10px; margin: 0.5rem 0 0.25rem; }
+    .stat { flex: 1; border: 0.5px solid var(--border); border-radius: 6px; padding: 8px 10px; text-align: center; }
+    .stat .k { font-size: 10px; letter-spacing: 0.08em; color: var(--text-3); text-transform: uppercase; }
+    .stat .v { font-family: ui-monospace, monospace; font-size: 17px; font-weight: 500; margin-top: 2px; }
+
+    .control { display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem; }
+    .control label { font-size: 13px; color: var(--text-2); width: 120px; flex-shrink: 0; }
+    .control input[type=range] { flex: 1; accent-color: var(--accent); }
+    .control .readout { font-family: ui-monospace, monospace; font-size: 14px; font-weight: 500; min-width: 52px; text-align: right; }
+
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 0.5px solid var(--border); margin-bottom: 0.75rem; }
+    .toggle-label { font-size: 13px; color: var(--text-2); }
+    .toggle { position: relative; width: 44px; height: 26px; flex-shrink: 0; }
+    .toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .toggle-track { position: absolute; inset: 0; background: var(--toggle-off); border-radius: 13px; cursor: pointer; transition: background-color 0.2s ease; }
+    .toggle input:checked + .toggle-track { background: var(--accent); }
+    .toggle-track::after { content: ''; position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; background: #ffffff; border-radius: 50%; transition: transform 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.18); }
+    .toggle input:checked + .toggle-track::after { transform: translateX(18px); }
+
+    .btn-row { display: flex; gap: 8px; justify-content: flex-start; margin-top: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 0.45rem 1.1rem; border-radius: 6px; font-size: 13px; font-family: system-ui, sans-serif; cursor: pointer; font-weight: 500; line-height: 1; }
+    .btn-primary { background: var(--accent); color: #ffffff; border: none; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:active { opacity: 0.75; }
+    .btn-secondary { background: transparent; color: var(--accent); border: 0.5px solid var(--accent); font-weight: 400; }
+    .btn-secondary:hover { background: var(--accent-tint); }
+
+    svg.figure { width: 100%; height: auto; display: block; margin: 0.25rem 0 0.5rem; overflow: visible; }
+
+    @media (max-width: 480px) {
+      .widget { padding: 1rem 1.1rem; }
+      .display-title { font-size: 20px; }
+      .body { font-size: 14px; }
+      .control { flex-wrap: wrap; gap: 4px; }
+      .control label { width: 100%; }
+      .btn-row { justify-content: stretch; }
+      .btn { flex: 1; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <p class="display-title">Four-Bar Linkage Explorer</p>
+    <p class="byline">DYNAMICS · MOBILITY M = 1</p>
+
+    <p class="body">A four-bar has mobility \(M = 1\): drive the crank through <em>one</em> input angle and the coupler and rocker positions are fully determined. Sweep the crank and watch the coupler point trace its path.</p>
+
+    <svg class="figure" id="fig" viewBox="0 0 300 240" role="img" aria-label="Animated four-bar linkage">
+      <!-- ground -->
+      <line id="ground" x1="90" y1="162" x2="242" y2="162" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 3" opacity="0.7" />
+      <!-- fixed-pivot symbols -->
+      <path d="M90,162 L83,174 L97,174 Z" fill="none" stroke="#9ca3af" stroke-width="1" />
+      <path d="M242,162 L235,174 L249,174 Z" fill="none" stroke="#9ca3af" stroke-width="1" />
+      <!-- coupler-point trace (built by JS) -->
+      <polyline id="trace" fill="none" stroke="#c2410c" stroke-width="1" opacity="0.45" />
+      <!-- links -->
+      <line id="crank"   stroke="#c2410c" stroke-width="2.5" stroke-linecap="round" />
+      <line id="coupler" stroke="#4b5563" stroke-width="2.5" stroke-linecap="round" />
+      <line id="rocker"  stroke="#4b5563" stroke-width="2.5" stroke-linecap="round" />
+      <!-- coupler point construction (faint) -->
+      <line id="pa" stroke="#c2410c" stroke-width="0.75" stroke-dasharray="2 2" opacity="0.5" />
+      <line id="pb" stroke="#c2410c" stroke-width="0.75" stroke-dasharray="2 2" opacity="0.5" />
+      <!-- joints -->
+      <circle cx="90"  cy="162" r="3.5" fill="#9ca3af" />
+      <circle cx="242" cy="162" r="3.5" fill="#9ca3af" />
+      <circle id="jA" r="3.5" fill="#4b5563" />
+      <circle id="jB" r="3.5" fill="#4b5563" />
+      <circle id="ptP" r="4" fill="#c2410c" />
+      <!-- labels -->
+      <text x="82"  y="188" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="10">O₂</text>
+      <text x="236" y="188" fill="#9ca3af" font-family="ui-monospace,monospace" font-size="10">O₄</text>
+    </svg>
+
+    <div class="readouts">
+      <div class="stat"><div class="k">Input · crank θ</div><div class="v" id="in-out">45°</div></div>
+      <div class="stat"><div class="k">Output · rocker φ</div><div class="v" id="phi-out">—</div></div>
+    </div>
+
+    <div class="control">
+      <label for="th-in">Crank angle \(\theta\)</label>
+      <input type="range" id="th-in" min="0" max="360" step="1" value="45" />
+      <span class="readout" id="th-read">45°</span>
+    </div>
+
+    <div class="toggle-row">
+      <span class="toggle-label">Show coupler-point path</span>
+      <label class="toggle" aria-label="Toggle coupler path">
+        <input type="checkbox" id="trace-tog" checked />
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="play-btn">▶ Play</button>
+      <button class="btn btn-secondary" onclick="document.getElementById('th-in').value=45;render(45);">Reset</button>
+    </div>
+
+    <p class="marginalia">One input, one determined output. The rocker angle \(\varphi\) is a pure function of the crank angle \(\theta\) — that single-valued relationship is exactly what \(M = 1\) means.</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+  <script>
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$",  right: "$$",  display: true  },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+
+    // ── Linkage geometry (model units) ──────────────────────────
+    const a = 1.0, b = 3.5, c = 3.5, d = 4.0;   // crank, coupler, rocker, ground
+    const O2 = [0, 0], O4 = [d, 0];
+    const Prel = [1.75, 1.30];                    // coupler point: along A→B, perp
+
+    // world → SVG transform
+    const S = 38, XMIN = -2, YMAX = 3.9, PAD = 14;
+    const sx = x => (x - XMIN) * S + PAD;
+    const sy = y => (YMAX - y) * S + PAD;
+
+    function solve(thetaDeg) {
+      const t = thetaDeg * Math.PI / 180;
+      const A = [a * Math.cos(t), a * Math.sin(t)];
+      const dx = O4[0] - A[0], dy = O4[1] - A[1];
+      const D = Math.hypot(dx, dy);
+      if (D > b + c || D < Math.abs(b - c)) return null;   // cannot assemble
+      const a_ = (b * b - c * c + D * D) / (2 * D);
+      const h = Math.sqrt(Math.max(0, b * b - a_ * a_));
+      const ux = dx / D, uy = dy / D;               // A→O4 unit
+      const mx = A[0] + a_ * ux, my = A[1] + a_ * uy;
+      const px = -uy, py = ux;                      // left perpendicular → upper branch
+      const B = [mx + h * px, my + h * py];
+      // coupler frame
+      const bx = B[0] - A[0], by = B[1] - A[1], bl = Math.hypot(bx, by);
+      const u2x = bx / bl, u2y = by / bl, n2x = -u2y, n2y = u2x;
+      const P = [A[0] + Prel[0] * u2x + Prel[1] * n2x,
+                 A[1] + Prel[0] * u2y + Prel[1] * n2y];
+      const phi = Math.atan2(B[1] - O4[1], B[0] - O4[0]) * 180 / Math.PI;
+      return { A, B, P, phi };
+    }
+
+    // ── Precompute coupler-point trace (static locus) ───────────
+    (function buildTrace() {
+      let pts = [];
+      for (let th = 0; th <= 360; th += 2) {
+        const s = solve(th);
+        if (s) pts.push(sx(s.P[0]).toFixed(1) + ',' + sy(s.P[1]).toFixed(1));
+      }
+      document.getElementById('trace').setAttribute('points', pts.join(' '));
+    })();
+
+    const el = id => document.getElementById(id);
+    function setLine(id, p1, p2) {
+      const L = el(id);
+      L.setAttribute('x1', sx(p1[0])); L.setAttribute('y1', sy(p1[1]));
+      L.setAttribute('x2', sx(p2[0])); L.setAttribute('y2', sy(p2[1]));
+    }
+    function setCirc(id, p) { el(id).setAttribute('cx', sx(p[0])); el(id).setAttribute('cy', sy(p[1])); }
+
+    function render(thetaDeg) {
+      const s = solve(thetaDeg);
+      el('th-read').textContent = Math.round(thetaDeg) + '°';
+      el('in-out').textContent  = Math.round(thetaDeg) + '°';
+      if (!s) { el('phi-out').textContent = 'no assembly'; return; }
+      setLine('crank',   O2, s.A);
+      setLine('coupler', s.A, s.B);
+      setLine('rocker',  O4, s.B);
+      setLine('pa', s.A, s.P);
+      setLine('pb', s.B, s.P);
+      setCirc('jA', s.A); setCirc('jB', s.B); setCirc('ptP', s.P);
+      el('phi-out').textContent = s.phi.toFixed(1) + '°';
+    }
+
+    // ── Controls ────────────────────────────────────────────────
+    const slider = el('th-in');
+    slider.addEventListener('input', () => render(parseFloat(slider.value)));
+
+    el('trace-tog').addEventListener('change', function () {
+      el('trace').style.display = this.checked ? '' : 'none';
+    });
+
+    // Play / pause (user-triggered mechanism animation)
+    let playing = false, raf = null;
+    function step() {
+      if (!playing) return;
+      let v = (parseFloat(slider.value) + 1.5) % 360;
+      slider.value = v;
+      render(v);
+      raf = requestAnimationFrame(step);
+    }
+    el('play-btn').addEventListener('click', function () {
+      playing = !playing;
+      this.textContent = playing ? '❚❚ Pause' : '▶ Play';
+      this.classList.toggle('btn-primary', true);
+      if (playing) step(); else cancelAnimationFrame(raf);
+    });
+
+    render(45);
+  </script>
+</body>
+</html>

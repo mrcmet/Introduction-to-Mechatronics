@@ -8,49 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "cc1ecda8e1b12ca9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Book/Mechanics/Support Reactions.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Support Reactions"
-            }
-          },
-          {
-            "id": "8bc9cb4a731293dd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Book/Mechanics/Beam End Conditions.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Beam End Conditions"
-            }
-          },
-          {
             "id": "023d4068c20ab526",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Book/Mechanics/Normal Stress.md",
-                "mode": "source",
-                "source": false
+                "file": "Book/Dynamics/_Dynamics Sequence Tracker.md",
+                "mode": "preview",
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "Normal Stress"
+              "title": "_Dynamics Sequence Tracker"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:mechanics",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -169,85 +140,92 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Book/Mechanics/Normal Stress.md",
+                "file": "Book/Dynamics/Motion Foundations/Velocity.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Normal Stress"
+              "title": "Outline of Velocity"
+            }
+          },
+          {
+            "id": "cf343ecb8298d15a",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
-      "obsidian-git:Open Git source control": false,
       "switcher:Open quick switcher": false,
       "bases:Create new base": false,
-      "syncthing-integration:Open Syncthing conflict manager modal": false,
       "graph:Open graph view": false,
-      "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "callout-manager:Insert Callout": false,
       "publish:Publish changes...": false,
-      "obsidian-excalidraw-plugin:New drawing": false
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "023d4068c20ab526",
   "lastOpenFiles": [
-    "Book/Mechanics/Point Load and Distributed Load.md",
-    "Book/Mechanics/Strain.md",
-    "Book/Mechanics/Stress-Strain Curve.md",
-    "Book/Mechanics/Ultimate Tensile Strength.md",
-    "Book/Mechanics/Torsional Shear Stress.md",
-    "Book/Mechanics/Support Reactions.md",
-    "Book/Mechanics/Bending Moment Diagram.md",
-    "Book/Mechanics/_Mechanics Sequence Tracker.md",
-    "Book/Mechanics/Beam End Conditions.md",
-    "Book/Mechanics/Singularity Functions.md",
-    "Excalidraw/Drawing 2026-05-13 19.08.34.excalidraw.md",
-    "Excalidraw/Drawing 2026-05-13 19.12.34.excalidraw.md",
-    "Excalidraw/Point Vs Distributed loads.svg",
-    "Book/Mechanics/Stress Tensor.md",
-    "Book/Mechanics/Shear Stress.md",
-    "Book/Mechanics/Transverse Shear Stress in Beams.md",
-    "Book/Mechanics/Yield Strength.md",
-    "Book/Mechanics/Young's Modulus.md",
-    "Excalidraw/Supports and reactions.svg",
-    "Excalidraw/Supports and reactions.md",
-    "Excalidraw/Drawing 2026-05-13 18.42.15.excalidraw.md",
-    "Excalidraw/Drawing 2026-05-13 18.25.13.excalidraw.md",
+    "widgets/dynamics/four-bar-explorer.html",
+    "widgets/dynamics/grubler-mobility.html",
+    "Book/Mechanics/Joint Reaction Force.md",
+    "Book/Mechanics/Static Equilibrium.md",
+    "Book/Dynamics/Linkage Analysis/Kinematic Constraint.md",
+    "Book/Dynamics/_Dynamics Sequence Tracker.sync-conflict-20260810-081305-ZSA6EGO.md",
+    "Book/Dynamics/Linkage Analysis/Mobility.md",
+    "Book/Dynamics/Linkage Analysis/Linkage Diagram.md",
+    "Book/Dynamics/Linkage Analysis/Link.md",
+    "Book/Dynamics/Linkage Analysis/Kinematic Pair.md",
+    "Book/Dynamics/Linkage Analysis/Grübler–Kutzbach Equation.md",
+    "Book/Dynamics/Linkage Analysis/Full Joint and Half Joint.md",
+    "Book/Dynamics/Linkage Analysis/Four-Bar Linkage.md",
+    "Book/Dynamics/_Dynamics Sequence Tracker.md",
+    "Book/Dynamics/Motion Foundations/Average Acceleration.md",
+    "Book/Dynamics/Motion Foundations/Constant Acceleration.md",
+    "Book/Dynamics/Motion Foundations/Instantaneous Acceleration.md",
+    "Book/Dynamics/Motion Foundations/Position.md",
+    "Book/Dynamics/Motion Foundations/Relative Position.md",
+    "Book/Dynamics/Motion Foundations/Velocity.md",
+    "Book/Dynamics/Motion Foundations/Time Interval.md",
+    "Book/Dynamics/Motion Foundations/Speed.md",
+    "Book/Dynamics/Advanced Motion/Rotation Order Matters.md",
+    "Book/Dynamics/Advanced Motion/Position Vector.md",
+    "Book/Dynamics/Advanced Motion/Pose and Configuration.md",
+    "Book/Dynamics/Advanced Motion/Euler Angles.md",
+    "Book/Dynamics/Advanced Motion/Homogeneous Transformation.md",
+    "Book/Dynamics/Linkage Analysis",
     "Resources/Drawing 2026-05-12 15.40.48.excalidraw 1 1 1.svg",
-    "Resources/Pasted image 20251228122646.png",
-    "Resources/Pasted image 20260513134013.png",
-    "Excalidraw/Drawing 2026-05-13 18.24.36.excalidraw.md",
-    "Excalidraw/Shear Tensor Notation.md",
-    "Excalidraw/Shear Tensor.md",
-    "Excalidraw/Point Vs Distributed loads.md",
-    "Excalidraw/Drawing 2026-05-13 15.51.36.excalidraw.md",
-    "Equation.md",
-    "Drawing 2026-05-12 15.40.48.excalidraw 1 1.svg",
-    "Excalidraw/Drawing 2026-05-12 15.40.48.excalidraw 1.svg",
-    "Excalidraw/Drawing 2026-05-12 15.40.48.excalidraw.svg",
-    "Excalidraw/Drawing 2026-05-12 15.40.48.excalidraw 1.png",
-    "Excalidraw/Drawing 2026-05-12 11.14.30.excalidraw.png",
-    "Excalidraw/Scripts/Downloaded",
-    "Excalidraw/Scripts",
-    "Excalidraw",
-    "widgets/mechanics/shear_stress_explorer.html",
-    "widgets/mechanics/axial-stress-explorer.html",
-    "widgets/mechanics/stress-strain-curve.html",
-    "widgets/mechanics/youngs-modulus-materials.html",
-    "widgets/mechanics",
-    "Book/Mechanics",
-    "Archive"
+    "Book/Dynamics/Control-Ready Dynamics",
+    "Book/Dynamics/Mechanisms and Constrained Motion",
+    "Book/Dynamics/Dynamic Load Transfer into Mechanics",
+    "Book/Dynamics/Actuator and Motor Dynamics",
+    "Book/Dynamics/Vibration",
+    "Book/Dynamics/Springs, Dampers, and Compliance",
+    "Book/Dynamics/Momentum, Impulse, and Impact",
+    "Book/Dynamics/Work, Energy, and Power",
+    "Excalidraw/Moment Diagram.svg",
+    "Excalidraw/Point Vs Distributed loads.svg",
+    "Excalidraw/Shear Diagram.svg",
+    "Excalidraw/Scripts/Downloaded/Set Grid.svg",
+    "Excalidraw/Scripts/Downloaded/Reverse arrows.svg",
+    "Excalidraw/Scripts/Downloaded/Set background color of unclosed line object by adding a shadow clone.svg",
+    "Excalidraw/Scripts/Downloaded/Shade Master.svg",
+    "Excalidraw/Supports and reactions.svg",
+    "Resources/Pasted image 20251228122646.png"
   ]
 }

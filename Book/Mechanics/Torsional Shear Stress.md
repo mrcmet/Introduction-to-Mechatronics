@@ -13,16 +13,40 @@ Notes:
 $$\tau_{max} = \frac{Tc}{J}$$
 - Polar moment of area $J$ for common cross-sections:
 
-| Cross-section | $J$ |
-|---|---|
-| Solid circle (radius $c$, diameter $d$) | $\dfrac{\pi c^4}{2} = \dfrac{\pi d^4}{32}$ |
-| Hollow circle (outer $c_o$, inner $c_i$) | $\dfrac{\pi (c_o^4 - c_i^4)}{2}$ |
+| Cross-section                                                                                             | $J$                                        |
+| --------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| Solid circle (radius $c$, diameter $d$)                                                                   | $\dfrac{\pi c^4}{2} = \dfrac{\pi d^4}{32}$ |
+| Hollow circle (outer $c_o$, inner $c_i$)                                                                  | $\dfrac{\pi (c_o^4 - c_i^4)}{2}$           |
+| [Additional Polar Moments of Inertia](https://www.structuralbasics.com/polar-moment-of-inertia-formulas/) |                                            |
 
 - The torsion formula assumes the shaft is prismatic (constant cross-section), the material is linearly elastic and isotropic, and plane cross-sections remain plane after twisting. These are [[Saint-Venant's Principle]] conditions — results near stress concentrations or abrupt geometry changes will differ.
 - The angle of twist $\phi$ over shaft length $L$ is related to $G$ and $J$:
 $$\phi = \frac{TL}{GJ}$$
-where $G$ is the [[Shear Modulus]]. A stiffer material or larger $J$ reduces twist for the same torque.
+  where $G$ is the [[Shear Modulus]]. A stiffer material or larger $J$ reduces twist for the same torque.
 - Torsional shear stress is one of three shear stress types — see [[Shear Stress]] for the family overview and formula comparison.
+
+## Equations
+
+> [!equation] Torsional Shear Stress
+> $$\tau = \frac{T r}{J}$$
+>
+> - $\tau$ — shear stress at radius $r$ (Pa or MPa)
+> - $T$ — applied [[Torque]] (N·m)
+> - $r$ — radial distance from shaft center to point of interest (m)
+> - $J$ — [[Polar Moment of Area]] of the cross-section (m⁴)
+
+> [!equation] Maximum Torsional Shear Stress
+> $$\tau_{max} = \frac{T c}{J}$$
+>
+> - $c$ — outer radius of the shaft (m); stress is greatest here
+> 
+
+> [!equation] Angle of Twist
+> $$\phi = \frac{TL}{GJ}$$
+>
+> - $\phi$ — angle of twist (radians)
+> - $L$ — shaft length (m)
+> - $G$ — [[Shear Modulus]] (Pa)
 
 ## Examples and Non-Examples
 
@@ -39,6 +63,7 @@ The hollow shaft has less material but a higher stress at the surface — removi
 
 ## Resources
 - ![](https://www.youtube.com/watch?v=1YTKedLQOa0)
+
 
 ## Practice
 - A solid aluminum shaft ($G = 26\ \text{GPa}$) has diameter $d = 40\ \text{mm}$ and carries torque $T = 350\ \text{N·m}$. (a) What is the maximum torsional shear stress? (b) At what radial distance from the center is the shear stress exactly half the maximum?

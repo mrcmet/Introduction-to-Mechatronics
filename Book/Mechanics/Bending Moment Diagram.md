@@ -11,9 +11,11 @@ Notes:
 - The slope of the BMD equals the shear force at that location: $\frac{dM}{dx} = V$. The maximum moment therefore occurs where $V = 0$ (or at a fixed wall where a reaction moment is applied).
 - Under a [[Point Load and Distributed Load|point load]] the BMD changes slope abruptly — the diagram is piecewise linear between loads.
 - Under a [[Point Load and Distributed Load|uniform distributed load]] of intensity $w$, moment varies as a quadratic — the BMD curves parabolically over the loaded region.
-- Sign convention (standard): positive $M$ causes the beam to **sag** (concave up, tension on the bottom fiber); negative $M$ causes **hogging** (concave down). Always state the convention you're using.
+- Sign convention (standard) Always state the convention you're using: 
+	- Positive $M$ causes the beam to **sag** (concave up, tension on the bottom fiber).
+	- Negative $M$ causes **hogging** (concave down). 
 - Always draw the BMD alongside the [[Shear Force Diagram]] — together they give a complete picture of [[Internal Forces in Beams]].
-
+![[Moment Diagram.svg]]
 ## Examples and Non-Examples
 
 - **Simply supported beam with a central point load.** Beam length $L = 6\ \text{m}$, point load $P = 30\ \text{kN}$ at mid-span. Reactions: $A_y = B_y = 15\ \text{kN}$.
@@ -33,8 +35,16 @@ Notes:
 - **Counter-example — the peak is not always at mid-span.** A simply supported beam with an off-center point load reaches maximum moment directly under the load, not at the geometric center. The rule is: the peak is wherever $V = 0$, which shifts with the load position.
 
 ## Resources
-- ![](https://www.youtube.com/watch?v=REPLACE_WITH_VIDEO_ID)
-- **[Engineering Toolbox — Beam Stress and Deflection](https://www.engineeringtoolbox.com/beam-stress-deflection-d_1312.html)** — moment formulas for common configurations.
+
+![](https://youtu.be/MvBqCeZllpQ?si=S85rXrCI9ee7avsC))
+
+![](https://youtu.be/C-FEVzI8oe8?si=mYzCq1ja-B7ETQDW)
+
+**[Table of Common Bending Moment Diagrams](https://mechanicalc.com/reference/beam-analysis#shear-moment-diagrams)**
+
+**[Beam Analysis Quick Reference (Formula Sheet)](https://mechanicalc.com/reference/beam-analysis-quick-reference)**
+
+**[Beam Analysis Calculator and Plotter](https://mechanicalc.com/calculators/beam-analysis/#divResults)**
 
 ## Practice
 - A simply supported beam of length $L = 8\ \text{m}$ carries a UDL of $w = 5\ \text{kN/m}$ over its full length. Find the bending moment at $x = 2\ \text{m}$ and $x = 4\ \text{m}$, and identify the maximum moment and its location.
