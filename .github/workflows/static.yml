@@ -9,7 +9,7 @@ on:
     branches: ["main"]
     paths:
       - "widgets/**"
-      - ".github/workflows/ci.yaml"
+      - ".github/workflows/static.yml"
   workflow_dispatch:        # lets you trigger a deploy manually from the Actions tab
 
 permissions:
