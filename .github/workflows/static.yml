@@ -36,8 +36,9 @@ jobs:
         run: |
           mkdir -p _site/widgets
           cp -r widgets/. _site/widgets/
-          # The gallery file is named widgets-index.html; expose it at /widgets/
-          if [ -f _site/widgets/widgets-index.html ]; then
+          # If an older repo only has widgets-index.html, expose it at /widgets/.
+          # Do not overwrite the real widgets/index.html gallery when it exists.
+          if [ ! -f _site/widgets/index.html ] && [ -f _site/widgets/widgets-index.html ]; then
             cp _site/widgets/widgets-index.html _site/widgets/index.html
           fi
           # GitHub Pages needs a root index.html. Mirror the widget gallery at /
