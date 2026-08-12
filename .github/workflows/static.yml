@@ -9,6 +9,7 @@ on:
     branches: ["main"]
     paths:
       - "widgets/**"
+      - ".github/workflows/static.yml"
       - ".github/workflows/ci.yaml"
   workflow_dispatch:        # lets you trigger a deploy manually from the Actions tab
 
@@ -39,6 +40,10 @@ jobs:
           if [ -f _site/widgets/widgets-index.html ]; then
             cp _site/widgets/widgets-index.html _site/widgets/index.html
           fi
+          # GitHub Pages needs a root index.html. Mirror the widget gallery at /
+          # while keeping its relative links pointed at /widgets/.
+          cp _site/widgets/index.html _site/index.html
+          sed -i '0,/<head>/s//<head>\n  <base href="widgets\/">/' _site/index.html
           touch _site/.nojekyll
           echo "Published tree:" && find _site -maxdepth 2 -type f | sort
 
